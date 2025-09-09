@@ -1,0 +1,76 @@
+
+section {
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+    margin-left: 30px;
+    padding: 2rem;
+    font-family: "Lexend Deca", sans-serif;
+}
+
+h2 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin-bottom: 40px;
+}
+
+.user-info {
+width: 30%;
+background-color: rgb(224, 243, 249);
+border-radius: 30px;
+padding: 2rem;
+color: rgb(56, 56, 70);
+word-break: break-all;
+margin-bottom: 50px;
+}
+
+.user-info p {
+    border-bottom: 1px solid rgb(76, 76, 95);
+    padding: 10px 20px;
+    color: rgb(56, 56, 70);
+    margin-left: 5px;
+}
+
+.user-info span {
+    color: rgb(43, 43, 53);
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-right: 10px;
+}
+
+h3 {
+    font-weight: 600;
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+    color:rgb(56, 56, 70);
+}
+
+.comment-list {
+    list-style: none;
+    padding: 0;
+}
+
+.comment-list li {
+    font-weight: 400;
+    margin-bottom: 50px;
+}
+
+.comment-list li span {
+    font-weight: 600;
+    margin-right: 5px;
+}
+
+.comment-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.comment-body {
+    margin-left: 20px;
+}
+
+.card-action {
+    margin-top: 20px;
+    justify-content: space-between;
+}

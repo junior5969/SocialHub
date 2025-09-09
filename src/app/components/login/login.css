@@ -1,0 +1,86 @@
+
+.login-container {
+background-color: rgb(216, 229, 239);
+display: flex;
+flex-direction: column;
+min-width: 100%;
+min-height: 100vh;
+padding: 20px;
+  font-family: 'Poppins', sans-serif;
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+
+ .example-container mat-form-field + mat-form-field {
+  margin-left: 8px;
+} 
+
+ .example-right-align {
+  text-align: right;
+} 
+
+input.example-right-align::-webkit-outer-spin-button,
+input.example-right-align::-webkit-inner-spin-button {
+  display: none;
+}
+
+
+h1 {
+  text-align: center;
+  margin: 100px auto;
+  font-size: 2.8rem;
+  font-weight: 500;
+  color: rgb(37, 151, 227);
+}
+
+h1 span {
+margin-left: 20px;
+}
+
+form {
+  margin: 0 auto;
+  min-width: 400px;
+  min-height: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 3rem;
+  padding: 20px 30px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.918);
+}
+
+form button {
+  margin-left: 40px;
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  border-radius: 20px;
+  min-width: 120px;
+  min-height: 40px;
+}
+
+@media screen and (max-width: 600px) {
+
+ h1 {
+    margin: 100px auto 50px auto;
+  }
+
+  form {
+    flex-direction: column;
+    min-width: 300px;
+    min-height: 250px;
+    gap: 30px;
+    justify-content: center;
+  }
+
+  form button {
+    margin-left: 0;
+    padding: 8px 16px;
+  }
+  
+}

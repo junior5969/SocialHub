@@ -1,0 +1,66 @@
+<section>
+
+<div class="details">
+<h2>Dettagli Utente</h2>
+
+
+@if (user) {
+  <div class="user-info">
+    <p><span>Nome:</span> {{ user.name }}</p>
+    <p><span>Email:</span> {{ user.email }}</p>
+    <p><span>Genere:</span> {{ user.gender }}</p>
+    <p><span>Status:</span> {{ user.status }}</p>
+  </div>
+}
+</div>
+
+<div class="posts">
+<h3>Post dell'utente</h3>
+
+@if (posts.length > 0) {
+    @for (post of posts; track post.id) {
+    <app-card [cardTitle]="post.title" [cardBody]="post.body" [cardUserId]="post.user_id">
+
+      <mat-card-actions class="card-action">
+        <!-- Bottone mostra/nascondi commenti -->
+        <button (click)="toggleComments(post.id)">
+          {{ showComments[post.id] ? '' : '' }}
+          	<mat-icon> mode_comment</mat-icon>
+        </button>
+
+      <div class="form-comment">
+    <button (click)="toggleForm(post.id)"><i class="bi bi-person-fill-add">  {{ showFormPost ? '' : '' }}</i></button>
+
+
+@if (showFormPost[post.id]) {
+<app-form
+  [fields]="commentsFields"
+  (formSubmit)="onSubmit(post.id, $event)" class="users-form">
+</app-form>
+}
+</div>
+   </mat-card-actions>
+
+        <!-- Se showComments è true, mostra commenti -->
+        @if (showComments[post.id]) {
+          @if (comments[post.id].length > 0) {
+            <ul class="comment-list">
+              @for (comment of comments[post.id]; track comment.id) {
+                <li>
+                  <p class="comment-title"><span>{{ comment.name }}</span><mat-icon>person_outline</mat-icon></p>
+                  <p class="comment-body">{{ comment.body }}</p>
+                </li>
+              }
+            </ul>
+            } @else {
+            <app-empty-state [typeText]="messageText"></app-empty-state>
+        }
+      }
+         </app-card>
+      }
+  } @else {
+      <app-empty-state [typeText]="typeText"></app-empty-state>
+}
+
+</div>
+</section>

@@ -1,0 +1,38 @@
+
+<section class="users-section">
+
+  <div class="users-header">
+
+  <app-search-bar [placeholder]="'Cerca nome o email'" [(term)]="searchTerm" (termChange)="onSearchUser()"></app-search-bar>
+
+<div class="users-button">
+<button (click)="toggleForm()"><i class="bi bi-person-fill-add">  {{ showFormUser ? '' : '' }}</i></button>
+
+
+<button routerLink="/posts">Elenco dei post</button>
+</div>
+
+<p>Tot. users: {{this.totalUsers}}</p>
+
+</div>
+
+@if (showFormUser) {
+<app-form
+  [fields]="userFields"
+  (formSubmit)="onSubmit($event)" class="users-form">
+</app-form>
+}
+
+
+
+<div class="users-list">
+@if (displayedUsers && displayedUsers.length > 0) {
+    @for (user of displayedUsers; track user.id) {
+  <app-user [user]="user"  (delete)="onDeleteUser($event)"></app-user>
+    }
+} @else {
+  <app-empty-state [typeText]="typeText"></app-empty-state>
+}
+</div>
+
+</section>

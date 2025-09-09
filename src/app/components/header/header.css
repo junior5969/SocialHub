@@ -1,0 +1,26 @@
+header {
+    padding: 10px;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.762);
+    backdrop-filter: blur(2px);
+}
+
+header img {
+    height: 80px;
+    border-radius: 20px;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+nav a {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    font-size: 1.2rem;
+}

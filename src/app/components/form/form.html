@@ -1,0 +1,16 @@
+
+
+ <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    @for (field of fields; track $index){  <!--array index è la tracking key-->
+      <ng-container>
+        <mat-form-field>
+          <mat-label>{{ field.label }}</mat-label>
+          <input matInput [type]="field.type" [formControlName]="field.name" />
+        </mat-form-field>
+      </ng-container>
+    }
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
+       Aggiungi
+      </button>
+    </form>

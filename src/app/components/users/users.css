@@ -1,0 +1,127 @@
+
+.users-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.users-header {
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
+  justify-content: space-between;
+  margin: 60px 20px;
+  gap: 40px;
+}
+
+.users-button {
+display: flex;
+flex-direction: row;
+gap: 40px;
+}
+
+
+.form-text {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  min-width: 150px;
+  max-width: fit-content;
+  width: 100%;
+  border-radius: 20px;
+  padding: 10px;
+  border: 2px solid rgb(164, 164, 164);
+}
+
+.form-text input {
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.form-text button {
+  border: transparent;
+  outline: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.form-text .bi {
+  font-size: 1.4rem;
+  margin: 0 10px;
+}
+
+button {
+width: 50px;
+height: 50px;
+border-radius: 100px;
+font-size: 1.2rem;
+}
+
+.users-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 60px;
+    padding: 40px 60px;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.users-form {
+  border-radius: 30px;
+  background: rgba(150, 182, 245, 0.629);
+  gap: 30px;
+  padding: 30px;
+  margin: 60px auto 100px auto;
+  font-size: 1.1rem;
+}
+
+.users-form input {
+width: 150px;
+border-radius: 20px;
+padding: 5px 10px;
+}
+
+.form-button {
+width: 80px;
+height: 40px;
+margin-left: 100%;
+}
+
+
+@media screen and (max-width:768px) {
+  
+  .users-section{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .users-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: nowrap;
+    padding: 40px 0;
+  }
+
+  .users-header {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    margin: 40px auto 20px auto;
+  }
+
+  .users-button {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+  }
+
+  .users-header p {
+    align-self: flex-end;
+  }
+}

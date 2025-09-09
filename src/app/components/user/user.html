@@ -1,0 +1,33 @@
+
+<!-- <mat-card class="example-card" appearance="outlined">
+<mat-card-header>
+<mat-card-title class="title">{{user.name}}</mat-card-title>
+<mat-card-subtitle class="subtitle">{{user.email}}</mat-card-subtitle>
+</mat-card-header>
+<mat-card-actions>
+    <button mat-button (click)="delete.emit(user.id)">Elimina utente</button>
+    <button mat-button [routerLink]="['/users', user.id]">Dettagli</button> 
+</mat-card> -->
+
+
+<mat-expansion-panel class="panel">
+  <mat-expansion-panel-header class="panel-header">
+    <mat-panel-title class="panel-title">
+      {{ user.name }}
+      <mat-icon class="icon">account_circle</mat-icon>
+    </mat-panel-title>
+</mat-expansion-panel-header>
+
+<div class="expansion-menu">
+
+  <div class="user-info">
+      <p><span>Email:</span> {{ user.email }}</p>
+      <p><span>Status:</span> {{ user.status }}</p>    
+   </div>
+
+  <div class="user-actions">
+    <button matButton="filled" [routerLink]="['/users', user.id]">Dettagli</button>
+    <button matButton="filled" (click)="delete.emit(user.id)">Elimina</button>
+  </div>
+</div>
+</mat-expansion-panel>

@@ -1,0 +1,61 @@
+
+<app-search-bar [placeholder]="'Cerca titolo o testo'" [(term)]="searchTerm" (termChange)="onSearchPost()"></app-search-bar>
+
+
+<div>
+
+    <button (click)="toggleForm()"><i class="bi bi-person-fill-add">  {{ showForm ? '' : '' }}</i></button>
+
+
+@if (showForm) {
+<app-form
+  [fields]="postFields"
+  (formSubmit)="onSubmit($event)" class="users-form">
+</app-form>
+}
+</div>
+
+
+<div>
+    <p>Tot. posts: {{this.totalPosts}}</p>
+
+@if (displayedPosts && displayedPosts.length > 0) {
+@for (post of displayedPosts; track post.id) {
+ 
+     <app-card [cardTitle]="post.title" [cardBody]="post.body" [cardUserId]="post.user_id"> 
+<!-- 	<div>
+        <h2>Title: {{post.title}}</h2>
+        <p>{{post.body}}</p>
+        <p>User id:{{post.user_id}}</p> -->
+
+
+    <mat-card-actions>
+           <!-- Bottone mostra/nascondi commenti -->
+        <button (click)="toggleComments(post.id)">
+          {{ showComments[post.id] ? '' : '' }}
+          	<mat-icon> mode_comment</mat-icon>
+        </button>
+    </mat-card-actions>
+
+
+  @if (showComments[post.id]) {
+          @if (comments[post.id].length > 0) {
+            <ul class="comment-list">
+              @for (comment of comments[post.id]; track comment.id) {
+                <li>
+                  <p class="comment-title"><span>{{ comment.name }}</span><mat-icon>person_outline</mat-icon></p>
+                  <p class="comment-body">{{ comment.body }}</p>
+                </li>
+              }
+            </ul>
+            } @else {
+            <app-empty-state [typeText]="messageText"></app-empty-state>
+        }
+      }
+    </app-card>
+
+}
+  } @else {
+      <app-empty-state [typeText]="typeText"></app-empty-state>
+}
+</div>

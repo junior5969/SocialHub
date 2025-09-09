@@ -1,0 +1,5 @@
+
+<div class="search-input">
+  <mat-icon aria-hidden="true">search</mat-icon>
+  <input type="text" [placeholder]="placeholder" [(ngModel)]="term" (ngModelChange)="termChange.emit($event)"  class="search-input" aria-label="Campo di ricerca">
+</div>
