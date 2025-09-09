@@ -10,11 +10,11 @@ import { Posts } from './components/posts/posts';
 
 export const routes: Routes = [
     {path: '', pathMatch: 'full', redirectTo: '/homepage'},
-    {path: 'homepage', component:Homepage}, 
-    {path: 'login', component:Login},
-    {path: 'users', component: Users, canActivate: [authGuard]},
-    {path: 'users/:id', component: UserDetail},
-    {path: 'posts', component: Posts},
-    {path: '404', component: Notfound},  
+    {path: 'homepage', loadComponent: () => import('./components/homepage/homepage').then(c => c.Homepage)},
+    {path: 'login', loadComponent: () => import('./components/login/login').then(c => c.Login)},
+    {path: 'users', loadComponent: () => import('./components/users/users').then(c => c.Users), canActivate: [authGuard]},
+    {path: 'users/:id', loadComponent: () => import('./components/user-detail/user-detail').then(c => c.UserDetail)},
+    {path: 'posts', loadComponent: () => import('./components/posts/posts').then(c => c.Posts)},
+    {path: '404', loadComponent: () => import('./components/notfound/notfound').then(c => c.Notfound)}, 
     {path: '**', redirectTo: '/404'},  //per qualsiasi altra rotta non definita, reindirizza a not found 404
 ];

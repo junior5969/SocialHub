@@ -21,8 +21,6 @@ export class Login implements OnInit {
 
   loginForm!: FormGroup;
 
-  isLogged:boolean=false;
-
   token:string='';
 
   constructor(private auth:Auth, private router: Router) {}

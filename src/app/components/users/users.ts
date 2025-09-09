@@ -1,4 +1,6 @@
 import { Component, OnInit , ViewChild} from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { API } from '../../service/api';
 import { HttpClient } from '@angular/common/http';
@@ -12,12 +14,13 @@ import { RouterLink } from '@angular/router';
 import { SearchBar } from '../search-bar/search-bar';
 import { EmptyState } from '../empty-state/empty-state';
 import { Form } from '../form/form';
+import { Header } from '../header/header';
 
 
 @Component({
   selector: 'app-users',
   standalone:true,
-  imports: [CommonModule, User, Form, FormsModule, EmptyState, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, RouterLink, SearchBar],
+  imports: [CommonModule, User, Header, Form, FormsModule, EmptyState, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, RouterLink, SearchBar],
   templateUrl: './users.html',
   styleUrls: ['./users.css']
 })
@@ -45,15 +48,23 @@ userFields = [
 
 @ViewChild(Form) formComponent!: Form;
 
+private destroy$ = new Subject<void>();
+
   constructor(private api: API) {}
 
   ngOnInit(): void {
-    this.api.getUsers().subscribe((data: any) => {
-      this.users = data;
-      this.displayedUsers = data; // inizializzo con tutti gli utenti
-      console.log(data);
-      this.totalUsers=this.displayedUsers.length;
-    });
+    this.api.getUsers()
+          .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: data => {
+          this.users = data;
+          this.displayedUsers = data;
+          this.totalUsers = data.length;
+          console.log('Utenti caricati:', data);
+        },
+        error: err => console.error('Errore caricamento utenti:', err),
+        complete: () => console.log('getUsers completato')
+      });
   }
 
 
@@ -68,16 +79,15 @@ userFields = [
     // chiama l'API per creare l'utente
     this.api.createUser(newUser).subscribe({
       next: (createdUser) => {
-        console.log(createdUser);
+      console.log('Utente creato:', createdUser);
        this.displayedUsers.unshift(createdUser); // aggiorno lista visualizzata
 
         // reset e chiusura form
         this.formComponent.resetForm();
         this.showFormUser = false;
       },
-      error: (err) => {
-        console.error('Errore creazione utente:', err);
-      }
+      error: err => console.error('Errore creazione utente:', err),
+      complete: () => console.log('createUser completato')
     });
   }
 
@@ -99,8 +109,9 @@ userFields = [
 
   
   onDeleteUser(idUser: number) {
-    this.api.deleteUser(idUser).subscribe(() => {
-      console.log("Utente eliminato:", idUser);
+    this.api.deleteUser(idUser).subscribe({
+      next: () => {
+        console.log('Utente eliminato:', idUser);
 
       // Aggiorno lista completa
       this.users = this.users.filter(user => user.id !== idUser);
@@ -109,8 +120,11 @@ userFields = [
       if (this.searchTerm.trim()) {
         this.onSearchUser();
       } else {
-        this.displayedUsers = this.users;
-      }
+          this.displayedUsers = this.users;
+        }
+      },
+      error: err => console.error('Errore eliminazione utente:', err),
+      complete: () => console.log('deleteUser completato')
     });
   }
 
@@ -118,4 +132,9 @@ userFields = [
     this.showFormUser = !this.showFormUser;
   }
 
+  
+  ngOnDestroy(): void {
+  this.destroy$.next();
+  this.destroy$.complete();
+}
 }

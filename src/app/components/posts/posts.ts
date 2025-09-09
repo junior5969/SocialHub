@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { API } from '../../service/api';
 import {MatInputModule} from '@angular/material/input';
@@ -43,16 +45,24 @@ postFields = [
 
 @ViewChild(Form) formComponent!: Form;
 
+private destroy$ = new Subject<void>();
+
   constructor(private api: API) {}
 
     ngOnInit(): void {
-  this.api.getPosts().subscribe((data: any) => {
-  console.log(data);
-  this.posts=data;
-  this.displayedPosts = data;
-  this.totalPosts=this.posts.length;
-  });
-  }
+  this.api.getPosts()
+  .pipe(takeUntil(this.destroy$))
+    .subscribe({
+      next: data => {
+        console.log(data);
+        this.posts = data;
+        this.displayedPosts = data;
+        this.totalPosts = this.posts.length;
+      },
+      error: err => console.error('Errore caricamento post:', err),
+      complete: () => console.log('Posts caricati')
+    });
+}
   
 toggleComments(postId: number) {
   if (this.showComments[postId]) {
@@ -60,14 +70,18 @@ toggleComments(postId: number) {
     this.showComments[postId] = false;
   } else {
     // Se non visibili, carica i commenti e mostra
-    this.api.getComments(postId).subscribe((data: any) => {
-      this.comments[postId] = data;
-      this.showComments[postId] = true;
-    });
+    this.api.getComments(postId)      
+    .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: data => {
+          this.comments[postId] = data;
+          this.showComments[postId] = true;
+        },
+        error: err => console.error('Errore caricamento commenti:', err),
+        complete: () => console.log('Commenti caricati')
+      });
   }
 }
-
-
 
  onSubmit(formValue: any) {
     const newPost = {
@@ -77,18 +91,18 @@ toggleComments(postId: number) {
     };
         this.api.createPost(newPost).subscribe({
       next: (createdPost) => {
-        console.log(createdPost);
+       console.log('Post creato:', createdPost);
        this.displayedPosts.unshift(createdPost); 
 
         // reset e chiusura form
         this.formComponent.resetForm();
         this.showForm = false;
       },
-      error: (err) => {
-        console.error('Errore creazione utente:', err);
-      }
+      error: err => console.error('Errore creazione post:', err),
+      complete: () => console.log('createPost completato')
     });
   }
+
 
   toggleForm() {
     this.showForm = !this.showForm;
@@ -108,4 +122,9 @@ toggleComments(postId: number) {
       console.log("Risultati:", this.displayedPosts);
 }
 
+
+ngOnDestroy(): void {
+  this.destroy$.next();
+  this.destroy$.complete();
+}
 }

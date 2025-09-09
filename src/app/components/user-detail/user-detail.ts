@@ -1,4 +1,6 @@
 import { Component, OnInit , ViewChild} from '@angular/core';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { API } from '../../service/api';
@@ -37,36 +39,53 @@ export class UserDetail implements OnInit{
 
 @ViewChild(Form) formComponent!: Form;
 
+private destroy$ = new Subject<void>();
+
   constructor(private route: ActivatedRoute, private api: API) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
 
     // carico utente
-    this.api.getUserById(id).subscribe((data) => {
-      this.user = data;
-    });
+    this.api.getUserById(id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+        next: data => { this.user = data; },
+        error: err => console.error('Errore caricamento utente:', err),
+        complete: () => console.log('getUserById completato')
+      });
+
 
     // carico post
-    this.api.getUserPosts(id).subscribe((data) => {
-      this.posts = data;
-      console.log(data)
-     });
-    }
-
-          toggleComments(postId: number) {
-    // se non ci sono commenti ancora, li carico
-    if (!this.comments[postId]) {
-      this.api.getComments(postId).subscribe(data => {
-        this.comments[postId] = data;
-        this.showComments[postId] = true; // apri automaticamente dopo fetch
+    this.api.getUserPosts(id)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+        next: data => { 
+          this.posts = data;
+          console.log('Post utente:', data);
+        },
+        error: err => console.error('Errore caricamento post utente:', err),
+        complete: () => console.log('getUserPosts completato')
       });
+  }
+
+
+  toggleComments(postId: number) {
+    if (!this.comments[postId]) {
+      this.api.getComments(postId)
+        .pipe(takeUntil(this.destroy$))
+        .subscribe({
+          next: data => {
+            this.comments[postId] = data;
+            this.showComments[postId] = true;
+          },
+          error: err => console.error('Errore caricamento commenti:', err),
+          complete: () => console.log(`Commenti post ${postId} caricati`)
+        });
     } else {
-      // altrimenti solo toggle visibilità
       this.showComments[postId] = !this.showComments[postId];
     }
   }
-
 
    onSubmit(postId:number,formValue: any) {
     const newComment = {
@@ -74,23 +93,27 @@ export class UserDetail implements OnInit{
     email: formValue.email,
     body: formValue.body,
   };
-   this.api.createComment(postId, newComment).subscribe({
-    next: (createdComment) => {
-      if (!this.comments[postId]) this.comments[postId] = [];
-      this.comments[postId].push(createdComment);
-      this.showComments[postId] = true;
-
-      // reset form per quel post
-      this.formComponent.resetForm();
-      this.showFormPost[postId] = false;
-    },
-      error: (err) => {
-        console.error('Errore creazione utente:', err);
-      }
+    this.api.createComment(postId, newComment).subscribe({
+      next: createdComment => {
+        if (!this.comments[postId]) this.comments[postId] = [];
+        this.comments[postId].push(createdComment);
+        this.showComments[postId] = true;
+        this.formComponent.resetForm();
+        this.showFormPost[postId] = false;
+      },
+      error: err => console.error('Errore creazione commento:', err),
+      complete: () => console.log(`createComment post ${postId} completato`)
     });
   }
 
+  
   toggleForm(postId: number) {
   this.showFormPost[postId] = !this.showFormPost[postId];
+}
+
+
+ngOnDestroy(): void {
+  this.destroy$.next();
+  this.destroy$.complete();
 }
 }

@@ -5,6 +5,10 @@ header {
     border-radius: 20px;
     background: rgba(255, 255, 255, 0.762);
     backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 header img {
@@ -14,8 +18,11 @@ header img {
 
 nav {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: space-around;
+    gap: 20px;
+   width: 80%;
 }
 
 nav a {
