@@ -6,15 +6,13 @@
 
     <button (click)="toggleForm()"><i class="bi bi-person-fill-add">  {{ showForm ? '' : '' }}</i></button>
 
-
 @if (showForm) {
 <app-form
   [fields]="postFields"
-  (formSubmit)="onSubmit($event)" class="users-form">
+  (formSubmit)="onSubmitPost($event)" 
+  class="users-form">
 </app-form>
 }
-</div>
-
 
 <div>
     <p>Tot. posts: {{this.totalPosts}}</p>
@@ -23,11 +21,6 @@
 @for (post of displayedPosts; track post.id) {
  
      <app-card [cardTitle]="post.title" [cardBody]="post.body" [cardUserId]="post.user_id"> 
-<!-- 	<div>
-        <h2>Title: {{post.title}}</h2>
-        <p>{{post.body}}</p>
-        <p>User id:{{post.user_id}}</p> -->
-
 
     <mat-card-actions>
            <!-- Bottone mostra/nascondi commenti -->
@@ -35,6 +28,19 @@
           {{ showComments[post.id] ? '' : '' }}
           	<mat-icon> mode_comment</mat-icon>
         </button>
+          <div class="form-comment">
+    <button (click)="toggleFormComment(post.id)"><i class="bi bi-person-fill-add">  {{ showFormComment[post.id] ? '' : '' }}</i></button>
+
+
+@if (showFormComment[post.id]) {
+  <app-form
+    [fields]="commentsFields"
+    [resetOnSubmit]="true"
+    (formSubmit)="onSubmitComment(post.id, $event)" 
+    class="users-form">
+  </app-form>
+}
+</div>
     </mat-card-actions>
 
 

@@ -16,6 +16,7 @@ import { FormsModule } from '@angular/forms';
 export class Form implements OnInit{
 
   @Input() fields!: { name: string; label: string; type: string; validators?: any[] }[];
+   @Input() resetOnSubmit: boolean = false; 
 
   @Output() formSubmit = new EventEmitter<any>();
 
@@ -32,9 +33,12 @@ export class Form implements OnInit{
   onSubmit() {
     if (this.form.valid) {
       this.formSubmit.emit(this.form.value);
+            if (this.resetOnSubmit) {
+        this.resetForm(); // reset automatico solo se richiesto
+      }
     }
-    }
-
+  }
+    
   resetForm() {
     this.form.reset();
   }

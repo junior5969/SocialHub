@@ -30,17 +30,26 @@ addUserForm!: FormGroup;
 displayedPosts: any[] = [];
 searchTerm: string = '';
 
-showForm:boolean=false;
+postId!:number;
 
   comments: { [postId: number]: any[] } = {}; // mappa: postId -> array di commenti
   showComments: { [postId: number]: boolean } = {};
   typeText:string='post'
   messageText:string='commento'
 
+showForm: boolean = false; // form globale post
+showFormComment: { [postId: number]: boolean } = {}; // form commenti per post
+
 postFields = [
   { name: 'titolo', label: 'Title', type: 'text', validators: [Validators.required] },
   { name: 'testo', label: 'Body', type: 'textarea', validators: [Validators.required] },
   { name: 'user_id', label: 'User Id', type: 'number', validators: [Validators.required] },
+];
+
+  commentsFields = [
+  { name: 'name', label: 'Nome', type: 'text', validators: [Validators.required] },
+  { name: 'email', label: 'Email', type: 'email', validators: [Validators.required, Validators.email] },
+  { name: 'body', label: 'Commento', type: 'textarea', validators: [Validators.required] },
 ];
 
 @ViewChild(Form) formComponent!: Form;
@@ -83,31 +92,60 @@ toggleComments(postId: number) {
   }
 }
 
- onSubmit(formValue: any) {
-    const newPost = {
-      user_id: formValue.user_id,
-      title: formValue.titolo,
-      body: formValue.testo,
-    };
-        this.api.createPost(newPost).subscribe({
-      next: (createdPost) => {
-       console.log('Post creato:', createdPost);
-       this.displayedPosts.unshift(createdPost); 
+onSubmitPost(formValue: any) {
+  const newPost = {
+    user_id: formValue.user_id,
+    title: formValue.titolo,
+    body: formValue.testo,
+  };
 
-        // reset e chiusura form
-        this.formComponent.resetForm();
-        this.showForm = false;
-      },
-      error: err => console.error('Errore creazione post:', err),
-      complete: () => console.log('createPost completato')
-    });
-  }
+  this.api.createPost(newPost).subscribe({
+    next: (createdPost) => {
+      console.log('Post creato:', createdPost);
+      this.displayedPosts.unshift(createdPost);
 
+      // reset e chiusura form
+      this.formComponent.resetForm();
+      this.showForm = false;
+    },
+    error: err => console.error('Errore creazione post:', err),
+    complete: () => console.log('createPost completato')
+  });
+}
+
+onSubmitComment(postId: number, formValue: any) {
+  const newComment = {
+    name: formValue.name,
+    email: formValue.email,
+    body: formValue.body,
+  };
+
+  this.api.createComment(postId, newComment).subscribe({
+    next: (createdComment) => {
+      console.log(`Commento creato per post ${postId}:`, createdComment);
+
+      if (!this.comments[postId]) {
+        this.comments[postId] = [];
+      }
+      this.comments[postId].push(createdComment);
+
+      // reset form e chiudi form solo di quel post
+      this.formComponent.resetForm();
+      this.showFormComment[postId] = false;
+      this.showComments[postId] = true;
+    },
+    error: err => console.error(`Errore creazione commento per post ${postId}:`, err),
+    complete: () => console.log('createComment completato')
+  });
+}
 
   toggleForm() {
     this.showForm = !this.showForm;
   }
 
+  toggleFormComment(postId: number) {
+  this.showFormComment[postId] = !this.showFormComment[postId];
+}
 
   onSearchPost() {
  if (!this.searchTerm.trim()) {
