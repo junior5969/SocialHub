@@ -8,11 +8,12 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FormsModule } from '@angular/forms';
 import { Auth } from '../../auth/auth';
 import { Header } from '../header/header';
+import { Button } from "../button/button";
 
 @Component({
   selector: 'app-login',
   standalone:true,
-  imports: [Header, MatFormFieldModule, MatInputModule, MatSelectModule,MatButtonModule, FormsModule, ReactiveFormsModule],
+  imports: [Header, MatFormFieldModule, MatInputModule, MatSelectModule, MatButtonModule, FormsModule, ReactiveFormsModule, Button],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './login.html',
   styleUrls: ['./login.css']

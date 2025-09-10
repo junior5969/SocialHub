@@ -4,7 +4,7 @@
 
 <div>
 
-    <button (click)="toggleForm()"><i class="bi bi-person-fill-add">  {{ showForm ? '' : '' }}</i></button>
+    <app-button (buttonClick)="toggleForm()" ariaLabel="Aggiungi un nuovo post" customClass="toggle-add-post"><mat-icon>add_box</mat-icon>{{ showForm ? '' : '' }}</app-button>
 
 @if (showForm) {
 <app-form
@@ -24,12 +24,11 @@
 
     <mat-card-actions>
            <!-- Bottone mostra/nascondi commenti -->
-        <button (click)="toggleComments(post.id)">
-          {{ showComments[post.id] ? '' : '' }}
-          	<mat-icon> mode_comment</mat-icon>
-        </button>
-          <div class="form-comment">
-    <button (click)="toggleFormComment(post.id)"><i class="bi bi-person-fill-add">  {{ showFormComment[post.id] ? '' : '' }}</i></button>
+        <app-button (buttonClick)="toggleComments(post.id)" ariaLabel="Mostra commenti" customClass="toggle-view-comment"><mat-icon>mode_comment</mat-icon>{{ showComments[post.id] ? '' : '' }}</app-button>
+    
+        <div class="form-comment">
+
+    <app-button (buttonClick)="toggleFormComment(post.id)"  ariaLabel="Aggiungi un nuovo commento" customClass="toggle-add-comment"><mat-icon> add_comment</mat-icon>{{ showFormComment[post.id] ? '' : '' }}</app-button>
 
 
 @if (showFormComment[post.id]) {

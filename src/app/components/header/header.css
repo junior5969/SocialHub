@@ -3,7 +3,7 @@ header {
     width: 90%;
     margin: 0 auto;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.762);
+    background: rgba(255, 255, 255, 0.411);
     backdrop-filter: blur(2px);
     display: flex;
     flex-direction: row;
@@ -25,9 +25,3 @@ nav {
    width: 80%;
 }
 
-nav a {
-    text-decoration: none;
-    color: black;
-    font-weight: bold;
-    font-size: 1.2rem;
-}

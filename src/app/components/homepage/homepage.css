@@ -18,8 +18,6 @@ max-width: 80%;
 margin: 0 auto;
 border-radius: 20px;
 padding: 20px;
-background: rgba(255, 255, 255, 0.241);
-backdrop-filter: blur(2px);
 }
 
 .text-content h1 {
@@ -45,17 +43,6 @@ backdrop-filter: blur(2px);
   width: fit-content;
 }
 
-.filled, .outlined {
-  font-size: 1.2rem;
-  padding: 10px 20px;
-  border-radius: 30px;
-  min-width: 140px;
-  min-height: 50px;
-}
-
-.outlined {
-  background-color: rgb(217, 217, 217);
-}
 
 
 @media screen and (max-width: 768px) {
@@ -74,9 +61,4 @@ backdrop-filter: blur(2px);
     gap: 20px;
   }
   
-  .filled, .outlined {
-    font-size: 1rem;
-    min-width: 120px;
-    min-height: 40px;
-  }
 }

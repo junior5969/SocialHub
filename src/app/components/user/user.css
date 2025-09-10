@@ -52,7 +52,7 @@ word-break: break-all;
   margin-top: 10px;
 }
 
-button {
+.button {
   font-size: 0.8rem;
 }
 
@@ -86,7 +86,7 @@ margin-top: 20px;
   gap: 20px;
 }
 
-button {
+.button {
   font-size: 0.8rem;
 }
 }

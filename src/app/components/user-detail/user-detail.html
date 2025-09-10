@@ -23,14 +23,11 @@
 
       <mat-card-actions class="card-action">
         <!-- Bottone mostra/nascondi commenti -->
-        <button (click)="toggleComments(post.id)">
-          {{ showComments[post.id] ? '' : '' }}
-          	<mat-icon> mode_comment</mat-icon>
-        </button>
+  <app-button (buttonClick)="toggleComments(post.id)" ariaLabel="Visualizza i commenti" customClass="toggle-view-comment"><mat-icon>mode_comment</mat-icon>{{ showComments[post.id] ? '' : '' }}</app-button>
+
 
       <div class="form-comment">
-    <button (click)="toggleForm(post.id)"><i class="bi bi-person-fill-add">  {{ showFormPost ? '' : '' }}</i></button>
-
+  <app-button (buttonClick)="toggleForm((post.id))" ariaLabel="Aggiungi un nuovo commento" customClass="toggle-add-comment"><mat-icon> add_comment</mat-icon>{{ showFormPost ? '' : '' }}</app-button>
 
 @if (showFormPost[post.id]) {
 <app-form

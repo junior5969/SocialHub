@@ -4,11 +4,12 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
+import { Button } from '../button/button';
 
 @Component({
   selector: 'app-form',
   standalone:true,
-  imports: [MatFormFieldModule, MatInputModule, MatSelectModule, FormsModule, ReactiveFormsModule],
+  imports: [Button, MatFormFieldModule, MatInputModule, MatSelectModule, FormsModule, ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './form.html',
   styleUrls: ['./form.css']

@@ -6,10 +6,10 @@
   <app-search-bar [placeholder]="'Cerca nome o email'" [(term)]="searchTerm" (termChange)="onSearchUser()"></app-search-bar>
 
 <div class="users-button">
-<button (click)="toggleForm()"><i class="bi bi-person-fill-add">  {{ showFormUser ? '' : '' }}</i></button>
+<app-button (buttonClick)="toggleForm()" ariaLabel="Aggiungi nuovo utente" customClass="add-user-button"><mat-icon>person_add</mat-icon>{{ showFormUser ? '' : '' }}</app-button>
 
 
-<button routerLink="/posts">Elenco dei post</button>
+<app-button label="Vai ai post" routerLink="/posts" customClass="posts-list-button"></app-button>
 </div>
 
 <p>Tot. users: {{this.totalUsers}}</p>

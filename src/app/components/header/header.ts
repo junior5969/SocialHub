@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { Auth } from '../../auth/auth';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
-import { MatIcon } from '@angular/material/icon';
+import { Button } from '../button/button';
 
 @Component({
   selector: 'app-header',
   standalone:true,
-  imports: [RouterLink, AsyncPipe, MatIcon],
+  imports: [RouterLink, AsyncPipe, Button],
   templateUrl: './header.html',
   styleUrls: ['./header.css']
 })

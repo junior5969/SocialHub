@@ -13,8 +13,7 @@
   <input matInput type="text" formControlName="token">
 </mat-form-field>
 
-
-<button matButton="tonal" type="submit" [disabled]="!loginForm.valid">Submit</button>
+<app-button label="Accedi" [disabled]="!loginForm.valid" type="submit" matStyle="filled" customClass="form-button"></app-button>
 
 </form>
 </div>

@@ -10,11 +10,12 @@ import { MatCardModule } from '@angular/material/card';
 import {FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { Form } from "../form/form";
+import { Button } from '../button/button';
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [Card, EmptyState, MatCardModule, MatIcon, Form, FormsModule, ReactiveFormsModule],
+  imports: [Card, EmptyState, MatCardModule, MatIcon, Form, FormsModule, ReactiveFormsModule, Button],
   templateUrl: './user-detail.html',
   styleUrls: ['./user-detail.css']
 })

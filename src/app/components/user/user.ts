@@ -5,14 +5,13 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { MatIcon } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
-import { Users } from '../users/users';
-import { API } from '../../service/api';
+import { Button } from '../button/button';
 
 
 @Component({
   selector: 'app-user',
   standalone:true,
-  imports: [MatExpansionModule, MatButtonModule, MatIcon, RouterLink, CommonModule],
+  imports: [MatExpansionModule, MatButtonModule, MatIcon, RouterLink, CommonModule, Button],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './user.html',
   styleUrls: ['./user.css']

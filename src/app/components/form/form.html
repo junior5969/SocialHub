@@ -10,7 +10,5 @@
       </ng-container>
     }
 
-      <button mat-raised-button color="primary" type="submit" [disabled]="!form.valid">
-       Aggiungi
-      </button>
+<app-button type="submit" [disabled]="!form.valid" customClass="mat-raised-button" color="primary" class="app-btn" label="Aggiungi" ariaLabel="Aggiungi nuovo elemento creato"></app-button>
     </form>

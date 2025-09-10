@@ -1,0 +1,71 @@
+
+.app-btn:hover {
+transform: scale(1.05);
+}
+
+.nav-button{
+    text-decoration: none;
+    color: rgb(13, 37, 191);
+    font-weight: bold;
+    font-size: 2.2rem;
+    background-color: white;
+    text-align: center;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.header-button {
+    font-size: 1.2rem;
+    background-color: white;
+}
+
+.filled, .outlined {
+  font-size: 1.2rem;
+  padding: 10px 20px;
+  border-radius: 30px;
+  min-width: 140px;
+  min-height: 50px;
+}
+
+.outlined {
+  background-color: rgb(217, 217, 217);
+}
+
+.form-button {
+  margin-left: 40px;
+  font-size: 1.1rem;
+  padding: 10px 20px;
+  border-radius: 20px;
+  min-width: 120px;
+  min-height: 40px;
+}
+
+.add-user-button {
+color: rgb(45, 44, 44);
+font-size: 1.4rem;
+width: fit-content;
+height: fit-content;
+padding: 10px 20px;
+border-radius: 20px;
+}
+
+.posts-list-button {
+color: rgb(45, 44, 44);
+font-size: 1.2rem;
+margin-left: 20px;
+}
+
+@media screen and (max-width: 768px) {
+
+  .filled, .outlined {
+    font-size: 1rem;
+    min-width: 120px;
+    min-height: 40px;
+  }
+
+   .form-button {
+    margin-left: 0;
+    padding: 8px 16px;
+  }
+}

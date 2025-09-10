@@ -55,15 +55,6 @@ form {
   background-color: rgba(255, 255, 255, 0.918);
 }
 
-form button {
-  margin-left: 40px;
-  font-size: 1.1rem;
-  padding: 10px 20px;
-  border-radius: 20px;
-  min-width: 120px;
-  min-height: 40px;
-}
-
 @media screen and (max-width: 600px) {
 
  h1 {
@@ -77,10 +68,5 @@ form button {
     gap: 30px;
     justify-content: center;
   }
-
-  form button {
-    margin-left: 0;
-    padding: 8px 16px;
-  }
-  
+ 
 }

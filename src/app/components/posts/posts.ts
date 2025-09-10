@@ -12,11 +12,12 @@ import { FormControl, FormsModule, FormGroup, ReactiveFormsModule, Validators } 
 import { SearchBar } from '../search-bar/search-bar';
 import { Form } from '../form/form';
 import { EmptyState } from '../empty-state/empty-state';
+import { Button } from '../button/button';
 
 @Component({
   selector: 'app-posts',
   standalone:true,
-  imports: [CommonModule, Form, Card, EmptyState, FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, SearchBar],
+  imports: [CommonModule, Form, Button, Card, EmptyState, FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, SearchBar],
   templateUrl: './posts.html',
   styleUrls: ['./posts.css']
 })

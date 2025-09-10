@@ -15,12 +15,13 @@ import { SearchBar } from '../search-bar/search-bar';
 import { EmptyState } from '../empty-state/empty-state';
 import { Form } from '../form/form';
 import { Header } from '../header/header';
+import { Button } from '../button/button';
 
 
 @Component({
   selector: 'app-users',
   standalone:true,
-  imports: [CommonModule, User, Header, Form, FormsModule, EmptyState, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, RouterLink, SearchBar],
+  imports: [CommonModule, User, Header, Form, Button, FormsModule, EmptyState, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, RouterLink, SearchBar],
   templateUrl: './users.html',
   styleUrls: ['./users.css']
 })
