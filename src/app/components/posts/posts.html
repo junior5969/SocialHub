@@ -1,10 +1,12 @@
 
+<div class="posts-header">
 <app-search-bar [placeholder]="'Cerca titolo o testo'" [(term)]="searchTerm" (termChange)="onSearchPost()"></app-search-bar>
 
-
-<div>
-
     <app-button type="button" (buttonClick)="toggleForm()" ariaLabel="Aggiungi un nuovo post" customClass="toggle-add-post"><mat-icon>add_box</mat-icon>{{ showForm ? '' : '' }}</app-button>
+
+        <p>Tot. posts: {{this.totalPosts}}</p>
+
+
 
 @if (showForm) {
 <app-form
@@ -13,9 +15,10 @@
   class="users-form">
 </app-form>
 }
+</div>
 
-<div>
-    <p>Tot. posts: {{this.totalPosts}}</p>
+
+<div class="posts-list">
 
 @if (displayedPosts && displayedPosts.length > 0) {
 @for (post of displayedPosts; track post.id) {
@@ -23,13 +26,15 @@
      <app-card [cardTitle]="post.title" [cardBody]="post.body" [cardUserId]="post.user_id"> 
 
     <mat-card-actions>
+
+      <div class="post-button">
            <!-- Bottone mostra/nascondi commenti -->
         <app-button type="button" (buttonClick)="toggleComments(post.id)" ariaLabel="Mostra commenti" customClass="toggle-view-comment"><mat-icon>mode_comment</mat-icon>{{ showComments[post.id] ? '' : '' }}</app-button>
     
         <div class="form-comment">
 
     <app-button type="button" (buttonClick)="toggleFormComment(post.id)"  ariaLabel="Aggiungi un nuovo commento" customClass="toggle-add-comment"><mat-icon> add_comment</mat-icon>{{ showFormComment[post.id] ? '' : '' }}</app-button>
-
+</div>
 
 @if (showFormComment[post.id]) {
   <app-form
