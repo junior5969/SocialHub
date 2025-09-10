@@ -16,8 +16,8 @@ import { Button } from '../button/button';
 })
 export class Form implements OnInit{
 
-  @Input() fields!: { name: string; label: string; type: string; validators?: any[] }[];
-   @Input() resetOnSubmit: boolean = false; 
+  @Input() fields!: { name: string; label: string; type: string; validators?: any[]; options?: string[]}[];
+  @Input() resetOnSubmit: boolean = false; 
 
   @Output() formSubmit = new EventEmitter<any>();
 

@@ -7,6 +7,7 @@ import { API } from '../../service/api';
 import { Card } from "../card/card";
 import { EmptyState } from '../empty-state/empty-state';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import {FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { Form } from "../form/form";
@@ -16,11 +17,10 @@ import { PostInterface } from '../../models/post-interface';
 import {CommentInterface} from '../../models/comment-interface';
 import { NewCommentInterface } from '../../models/new-comment-interface';
 
-
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [Card, EmptyState, MatCardModule, MatIcon, Form, FormsModule, ReactiveFormsModule, Button],
+  imports: [Card, EmptyState, MatCardModule, MatIcon, Form, FormsModule, ReactiveFormsModule, Button, MatSnackBarModule],
   templateUrl: './user-detail.html',
   styleUrls: ['./user-detail.css']
 })
@@ -47,7 +47,7 @@ export class UserDetail implements OnInit{
 
 private destroy$ = new Subject<void>();
 
-  constructor(private route: ActivatedRoute, private api: API) {}
+  constructor(private route: ActivatedRoute, private api: API, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     const id = Number(this.route.snapshot.paramMap.get('id'));
@@ -106,8 +106,26 @@ private destroy$ = new Subject<void>();
         this.showComments[postId] = true;
         this.formComponent.resetForm();
         this.showFormPost[postId] = false;
+     
+                // Snackbar di successo
+        this.snackBar.open('Commento creato con successo!', 'Chiudi', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        });
       },
-      error: err => console.error('Errore creazione commento:', err),
+
+      error: err => {
+        console.error('Errore creazione commento:', err),
+                // Snackbar di errore
+        this.snackBar.open(
+          "Errore durante la creazione del commento!",
+          'Chiudi',
+          {
+            duration: 3000,
+          }
+        );
+      },
       complete: () => console.log(`createComment post ${postId} completato`)
     });
   }

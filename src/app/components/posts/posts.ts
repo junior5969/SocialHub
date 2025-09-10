@@ -8,6 +8,7 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { Card } from "../card/card";
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormControl, FormsModule, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SearchBar } from '../search-bar/search-bar';
 import { Form } from '../form/form';
@@ -21,7 +22,7 @@ import { NewCommentInterface } from '../../models/new-comment-interface';
 @Component({
   selector: 'app-posts',
   standalone:true,
-  imports: [CommonModule, Form, Button, Card, EmptyState, FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, SearchBar],
+  imports: [CommonModule, Form, Button, Card, EmptyState, FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, SearchBar, MatSnackBarModule],
   templateUrl: './posts.html',
   styleUrls: ['./posts.css']
 })
@@ -45,10 +46,13 @@ postId!:number;
 showForm: boolean = false; // form globale post
 showFormComment: { [postId: number]: boolean } = {}; // form commenti per post
 
+userId : number [] =[];
+
+
 postFields = [
   { name: 'title', label: 'Title', type: 'text', validators: [Validators.required] },
   { name: 'body', label: 'Body', type: 'textarea', validators: [Validators.required] },
-  { name: 'user_id', label: 'User Id', type: 'number', validators: [Validators.required] },
+  { name: 'user_id', label: 'User Id', type: 'select', validators: [Validators.required] },
 ];
 
   commentsFields = [
@@ -61,7 +65,7 @@ postFields = [
 
 private destroy$ = new Subject<void>();
 
-  constructor(private api: API) {}
+  constructor(private api: API, private snackBar: MatSnackBar) {}
 
     ngOnInit(): void {
   this.api.getPosts()
@@ -69,6 +73,18 @@ private destroy$ = new Subject<void>();
     .subscribe({
       next: data => {
         console.log(data);
+
+        this.userId = [...new Set(data.map(post => post.user_id))];
+        console.log("userId totali:", this.userId);
+
+              // aggiornamento dinamico dell'opzione della select
+     this.postFields = this.postFields.map(field => {
+  if (field.name === 'user_id') {
+    return { ...field, options: this.userId.map(id => id.toString()) };
+  }
+  return field;
+});
+    
         this.posts = data;
         this.displayedPosts = data;
         this.totalPosts = this.posts.length;
@@ -112,8 +128,25 @@ onSubmitPost(formValue: { user_id: string; title: string; body: string }) {
       // reset e chiusura form
       this.formComponent.resetForm();
       this.showForm = false;
-    },
-    error: err => console.error('Errore creazione post:', err),
+                   // Snackbar di successo
+        this.snackBar.open('Post creato con successo!', 'Chiudi', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        });
+      },
+
+    error: err =>{
+       console.error('Errore creazione post:', err),
+                   // Snackbar di errore
+        this.snackBar.open(
+          "Errore durante la creazione del post!",
+          'Chiudi',
+          {
+            duration: 3000,
+          }
+        );
+      },
     complete: () => console.log('createPost completato')
   });
 }
@@ -138,9 +171,25 @@ onSubmitComment(postId: number, formValue: { name: string; email: string; body: 
       this.formComponent.resetForm();
       this.showFormComment[postId] = false;
       this.showComments[postId] = true;
-    },
-    error: err => console.error(`Errore creazione commento per post ${postId}:`, err),
-    complete: () => console.log('createComment completato')
+             // Snackbar di successo
+        this.snackBar.open('Commento creato con successo!', 'Chiudi', {
+          duration: 3000,
+          horizontalPosition: 'right',
+          verticalPosition: 'top',
+        });
+      },
+    error: err => {
+      console.error(`Errore creazione commento per post ${postId}:`, err),
+        // Snackbar di errore
+        this.snackBar.open(
+          "Errore durante la creazione del commento!",
+          'Chiudi',
+          {
+            duration: 3000,
+          }
+        );
+      },
+      complete: () => console.log('createComment completato')
   });
 }
 

@@ -4,10 +4,22 @@
     @for (field of fields; track $index){  <!--array index è la tracking key-->
       <ng-container>
         <mat-form-field>
+
           <mat-label>{{ field.label }}</mat-label>
+          @if  (field.type !== 'select') {
           <input matInput [type]="field.type" [formControlName]="field.name">
-        </mat-form-field>
-      </ng-container>
+      }@else{
+                <mat-select [formControlName]="field.name">
+                   @for (option of field.options; track $index){
+          <mat-option [value]="option" >
+            {{ option }}
+          </mat-option>
+        }
+        </mat-select>
+      }
+
+      </mat-form-field>  
+    </ng-container>
     }
 
 <app-button type="submit" [disabled]="!form.valid" matStyle="filled" customClass="form-button" class="app-btn" label="Aggiungi" ariaLabel="Aggiungi nuovo elemento creato"></app-button>
