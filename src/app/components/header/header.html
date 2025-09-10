@@ -1,14 +1,14 @@
 <header>
   <nav>
     <img src="assets\logo-esteso.png" alt="Logo SocialHub" />
-    <app-button routerLink="/homepage" customClass="nav-button" label="⌂" ariaLabel="Vai alla homepage"></app-button>
+    <app-button routerLink="/homepage" customClass="nav-button" label="Home" ariaLabel="Vai alla homepage"></app-button>
   </nav>
 
    <div class="actions">
     @if (!(isLoggedIn | async)) {
-      <app-button routerLink="/login" label="Login" customClass="header-button"></app-button>
+      <app-button type="button" routerLink="/login" label="Login" customClass="header-button"></app-button>
     } @else {
-      <app-button label="Logout" (buttonClick)="logout()" customClass="header-button"></app-button>
+      <app-button type="button" label="Logout" (buttonClick)="logout()" customClass="header-button"></app-button>
     }
   </div>
 </header>

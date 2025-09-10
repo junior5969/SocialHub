@@ -1,9 +1,9 @@
 header {
-    padding: 10px;
-    width: 90%;
+    padding: 2px 8px;
+    width: 80%;
     margin: 0 auto;
-    border-radius: 20px;
-    background: rgba(255, 255, 255, 0.411);
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.597);
     backdrop-filter: blur(2px);
     display: flex;
     flex-direction: row;
@@ -22,6 +22,36 @@ nav {
     align-items: center;
     justify-content: space-around;
     gap: 20px;
-   width: 80%;
+    width: 80%;
 }
 
+@media screen and (max-width:768px) {
+    
+    header {
+    padding: 2px 0;
+    width: 50%;
+    margin: 0 auto;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.597);
+    backdrop-filter: blur(2px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+header img {
+    height: 40px;
+    border-radius: 20px;
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    gap: 20px;
+    width: 80%;
+    padding: 20px 0;
+}
+}

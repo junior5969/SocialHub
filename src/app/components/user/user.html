@@ -15,8 +15,8 @@
    </div>
 
   <div class="user-actions">
-    <app-button matStyle="filled" label="Dettagli" [routerLink]="['/users', user.id]" customClass="button-detail"></app-button>
-    <app-button matStyle="filled" label="Elimina" (buttonClick)="delete.emit(user.id)" customClass="button-delete"></app-button>
+    <app-button type="button" matStyle="filled" label="Dettagli" [routerLink]="['/users', user.id]" customClass="button-detail"></app-button>
+    <app-button type="button" matStyle="filled" label="Elimina" (buttonClick)="delete.emit(user.id)" customClass="button-delete"></app-button>
   </div>
 </div>
 </mat-expansion-panel>

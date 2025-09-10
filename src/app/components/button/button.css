@@ -1,26 +1,28 @@
-
 .app-btn:hover {
-transform: scale(1.05);
+  transform: scale(1.06);
 }
 
-.nav-button{
-    text-decoration: none;
-    color: rgb(13, 37, 191);
-    font-weight: bold;
-    font-size: 2.2rem;
-    background-color: white;
-    text-align: center;
-    display: inline-flex;
-    flex-direction: row;
-    justify-content: center;
+.app-btn {
+  border: transparent;
 }
 
+.nav-button,
 .header-button {
-    font-size: 1.2rem;
-    background-color: white;
+  color: #000000;
+  font-size: 1.2rem;
+  font-weight: 500;
+  background-color: #8dafd0b9;
 }
 
-.filled, .outlined {
+.nav-button:hover,
+.header-button:hover {
+  background-color: #04529f;
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.filled,
+.outlined {
   font-size: 1.2rem;
   padding: 10px 20px;
   border-radius: 30px;
@@ -42,30 +44,58 @@ transform: scale(1.05);
 }
 
 .add-user-button {
-color: rgb(45, 44, 44);
-font-size: 1.4rem;
-width: fit-content;
-height: fit-content;
-padding: 10px 20px;
-border-radius: 20px;
+  color: rgb(45, 44, 44);
+  font-size: 1.4rem;
+  width: fit-content;
+  height: fit-content;
+  padding: 10px 20px;
+  border-radius: 20px;
+  border: transparent;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 .posts-list-button {
-color: rgb(45, 44, 44);
-font-size: 1.2rem;
-margin-left: 20px;
+  color: rgb(45, 44, 44);
+  font-size: 1.2rem;
+  margin-left: 20px;
+  border: transparent;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
 @media screen and (max-width: 768px) {
 
-  .filled, .outlined {
+  .header-button {
+    margin: 10px 0 20px 0;
+  }
+
+  .nav-button,
+  .header-button {
+    font-size: 1rem;
+    min-width: 100px;
+    min-height: 40px;
+    border: transparent;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+
+  .filled,
+  .outlined {
     font-size: 1rem;
     min-width: 120px;
     min-height: 40px;
   }
 
-   .form-button {
+  .form-button {
     margin-left: 0;
     padding: 8px 16px;
   }
+
+  .posts-list-button {
+    font-size: 1.1rem;
+    text-align: center;
+    min-width: 150px;
+    height: fit-content;
+    width: fit-content;
+    padding: 10px 20px;
+  }
+
 }

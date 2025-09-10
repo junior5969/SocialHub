@@ -51,19 +51,22 @@ form {
   align-items: center;
   gap: 3rem;
   padding: 20px 30px;
-  border-radius: 20px;
+  border-radius: 30px;
   background-color: rgba(255, 255, 255, 0.918);
 }
 
-@media screen and (max-width: 600px) {
+@media screen and (max-width: 768px) {
 
  h1 {
-    margin: 100px auto 50px auto;
+  font-size: 2.4rem;
+    margin: 150px auto 50px auto;
   }
 
   form {
     flex-direction: column;
-    min-width: 300px;
+    min-width: unset;
+    max-width: 80%;
+    margin: 0 auto;
     min-height: 250px;
     gap: 30px;
     justify-content: center;

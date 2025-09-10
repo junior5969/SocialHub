@@ -24,3 +24,21 @@
   background-color: transparent;
   cursor: pointer;
 }
+
+
+@media screen and (max-width:768px) {
+  .search-input {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  gap: 10px;
+  min-width: 80%;
+  max-width: fit-content;
+  margin: 0 auto;
+  border-radius: 20px;
+  padding: 5px;
+  border: 2px solid rgb(164, 164, 164);
+}
+}
