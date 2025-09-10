@@ -16,6 +16,8 @@ import { EmptyState } from '../empty-state/empty-state';
 import { Form } from '../form/form';
 import { Header } from '../header/header';
 import { Button } from '../button/button';
+import { UserInterface } from '../../models/user-interface';
+import { NewUserInterface } from '../../models/new-user-interface';
 
 
 @Component({
@@ -26,14 +28,14 @@ import { Button } from '../button/button';
   styleUrls: ['./users.css']
 })
 export class Users implements OnInit{
-  users: any[] = [];
+  users: UserInterface[] = [];
   totalUsers!: number;
 
 /*   addUserForm!: FormGroup; */
 
-  displayedUsers: any[] = [];
+  displayedUsers: UserInterface[] = [];
   searchTerm: string = '';
-  detailedUser: any;
+  detailedUser?: UserInterface;
   showFormUser: boolean = false;
 
   typeText:string='utente';
@@ -41,10 +43,10 @@ export class Users implements OnInit{
 
     // campi da passare al FormComponent
 userFields = [
-  { name: 'nome', label: 'Name', type: 'text', validators: [Validators.required] },
+  { name: 'name', label: 'Name', type: 'text', validators: [Validators.required] },
   { name: 'email', label: 'Email', type: 'email', validators: [Validators.required, Validators.email] },
-  { name: 'genere', label: 'Gender', type: 'text', validators: [] },
-  { name: 'stato', label: 'Status', type: 'text', validators: [] }
+  { name: 'gender', label: 'Gender', type: 'text', validators: [] },
+  { name: 'status', label: 'Status', type: 'text', validators: [] }
 ];
 
 @ViewChild(Form) formComponent!: Form;
@@ -69,12 +71,12 @@ private destroy$ = new Subject<void>();
   }
 
 
- onSubmit(formValue: any) {
-    const newUser = {
-      name: formValue.nome,
+ onSubmit(formValue: { name: string; email: string; gender: 'male' | 'female'; status: 'active' | 'inactive' }) {
+    const newUser:NewUserInterface = {
+      name: formValue.name,
       email: formValue.email,
-      gender: formValue.genere,
-      status: formValue.stato,
+      gender: formValue.gender,
+      status: formValue.status,
     };
 
     // chiama l'API per creare l'utente
@@ -99,7 +101,7 @@ private destroy$ = new Subject<void>();
       this.displayedUsers = [...this.users]; // reset se campo vuoto
     return;
  }
-      this.displayedUsers = this.users.filter((user: any) =>
+      this.displayedUsers = this.users.filter((user: UserInterface) =>
         user.name.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         user.email.toLowerCase().includes(this.searchTerm.toLowerCase())
       );

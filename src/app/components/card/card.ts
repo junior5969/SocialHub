@@ -13,5 +13,5 @@ export class Card {
 
   @Input() cardTitle=';'
   @Input() cardBody='';
-  @Input() cardUserId='';
+  @Input() cardUserId!: string | number;
 }

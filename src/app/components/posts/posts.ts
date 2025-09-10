@@ -13,6 +13,10 @@ import { SearchBar } from '../search-bar/search-bar';
 import { Form } from '../form/form';
 import { EmptyState } from '../empty-state/empty-state';
 import { Button } from '../button/button';
+import { PostInterface } from '../../models/post-interface';
+import { CommentInterface } from '../../models/comment-interface';
+import { NewPostInterface } from '../../models/new-post-interface';
+import { NewCommentInterface } from '../../models/new-comment-interface';
 
 @Component({
   selector: 'app-posts',
@@ -23,17 +27,17 @@ import { Button } from '../button/button';
 })
 export class Posts implements OnInit {
 
-posts: any[] = [];
+posts: PostInterface[] = [];
 totalPosts!:number;
 
 addUserForm!: FormGroup;
 
-displayedPosts: any[] = [];
+displayedPosts: PostInterface[] = [];
 searchTerm: string = '';
 
 postId!:number;
 
-  comments: { [postId: number]: any[] } = {}; // mappa: postId -> array di commenti
+  comments: { [postId: number]: CommentInterface[] } = {}; // mappa: postId -> array di commenti
   showComments: { [postId: number]: boolean } = {};
   typeText:string='post'
   messageText:string='commento'
@@ -42,8 +46,8 @@ showForm: boolean = false; // form globale post
 showFormComment: { [postId: number]: boolean } = {}; // form commenti per post
 
 postFields = [
-  { name: 'titolo', label: 'Title', type: 'text', validators: [Validators.required] },
-  { name: 'testo', label: 'Body', type: 'textarea', validators: [Validators.required] },
+  { name: 'title', label: 'Title', type: 'text', validators: [Validators.required] },
+  { name: 'body', label: 'Body', type: 'textarea', validators: [Validators.required] },
   { name: 'user_id', label: 'User Id', type: 'number', validators: [Validators.required] },
 ];
 
@@ -93,11 +97,11 @@ toggleComments(postId: number) {
   }
 }
 
-onSubmitPost(formValue: any) {
-  const newPost = {
-    user_id: formValue.user_id,
-    title: formValue.titolo,
-    body: formValue.testo,
+onSubmitPost(formValue: { user_id: string; title: string; body: string }) {
+  const newPost: NewPostInterface = {
+    user_id: Number(formValue.user_id),
+    title: formValue.title,
+    body: formValue.body,
   };
 
   this.api.createPost(newPost).subscribe({
@@ -114,8 +118,8 @@ onSubmitPost(formValue: any) {
   });
 }
 
-onSubmitComment(postId: number, formValue: any) {
-  const newComment = {
+onSubmitComment(postId: number, formValue: { name: string; email: string; body: string }) {
+  const newComment: NewCommentInterface = {
     name: formValue.name,
     email: formValue.email,
     body: formValue.body,
@@ -153,7 +157,7 @@ onSubmitComment(postId: number, formValue: any) {
       this.displayedPosts = [...this.posts]; // reset se campo vuoto
     return;
  }
-      this.displayedPosts = this.posts.filter((post: any) =>
+      this.displayedPosts = this.posts.filter((post: PostInterface) =>
         post.title.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
         post.body.toLowerCase().includes(this.searchTerm.toLowerCase())
       );

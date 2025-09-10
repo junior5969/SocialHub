@@ -11,6 +11,11 @@ import {FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
 import { Form } from "../form/form";
 import { Button } from '../button/button';
+import { UserInterface } from '../../models/user-interface';
+import { PostInterface } from '../../models/post-interface';
+import {CommentInterface} from '../../models/comment-interface';
+import { NewCommentInterface } from '../../models/new-comment-interface';
+
 
 @Component({
   selector: 'app-user-detail',
@@ -21,13 +26,13 @@ import { Button } from '../button/button';
 })
 export class UserDetail implements OnInit{
 
-  user: any;
-  posts: any[] = [];
-  comments: { [postId: number]: any[] } = {}; // mappa: postId -> array di commenti
+  user!: UserInterface;
+  posts: PostInterface[] = [];
+  comments: { [postId: number]: CommentInterface[] } = {}; // mappa: postId -> array di commenti
   showComments: { [postId: number]: boolean } = {};
   typeText:string='post'
   messageText:string='commento'
-  displayedComments: any[] = [];
+  displayedComments: CommentInterface[] = [];
   postId!:number;
  
   showFormPost: { [postId: number]: boolean } = {};
@@ -88,8 +93,8 @@ private destroy$ = new Subject<void>();
     }
   }
 
-   onSubmit(postId:number,formValue: any) {
-    const newComment = {
+   onSubmit(postId:number,formValue: { name: string; email: string; body: string }) {
+    const newComment: NewCommentInterface = {
     name: formValue.name,
     email: formValue.email,
     body: formValue.body,
