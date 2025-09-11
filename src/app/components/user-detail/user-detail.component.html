@@ -17,17 +17,18 @@
 <div class="posts">
 <h3>Post dell'utente</h3>
 
+<div class="posts-list">
 @if (posts.length > 0) {
     @for (post of posts; track post.id) {
     <app-card [cardTitle]="post.title" [cardBody]="post.body" [cardUserId]="post.user_id">
 
       <mat-card-actions class="card-action">
         <!-- Bottone mostra/nascondi commenti -->
-  <app-button type="button" (buttonClick)="toggleComments(post.id)" ariaLabel="Visualizza i commenti" customClass="toggle-view-comment"><mat-icon>mode_comment</mat-icon>{{ showComments[post.id] ? '' : '' }}</app-button>
+  <app-button type="button" (buttonClick)="toggleComments(post.id)" [iconAriaHidden]="false" ariaLabel="Visualizza i commenti" customClass="toggle-view-comment"><mat-icon>mode_comment</mat-icon>{{ showComments[post.id] ? '' : '' }}</app-button>
 
 
       <div class="form-comment">
-  <app-button type="button" (buttonClick)="toggleForm((post.id))" ariaLabel="Aggiungi un nuovo commento" customClass="toggle-add-comment"><mat-icon> add_comment</mat-icon>{{ showFormPost ? '' : '' }}</app-button>
+  <app-button type="button" (buttonClick)="toggleForm((post.id))" [iconAriaHidden]="false" ariaLabel="Aggiungi un nuovo commento" customClass="toggle-add-comment"><mat-icon> add_comment</mat-icon>{{ showFormPost ? '' : '' }}</app-button>
 
 @if (showFormPost[post.id]) {
 <app-form
@@ -44,7 +45,7 @@
             <ul class="comment-list">
               @for (comment of comments[post.id]; track comment.id) {
                 <li>
-                  <p class="comment-title"><span>{{ comment.name }}</span><mat-icon>person_outline</mat-icon></p>
+                  <p class="comment-title"><mat-icon>person_outline</mat-icon><span>{{ comment.name }}</span></p>
                   <p class="comment-body">{{ comment.body }}</p>
                 </li>
               }
@@ -58,6 +59,6 @@
   } @else {
       <app-empty-state [typeText]="typeText"></app-empty-state>
 }
-
+</div>
 </div>
 </section>

@@ -5,10 +5,10 @@ import { MatIcon } from '@angular/material/icon';
   selector: 'app-empty-state',
   standalone:true,
   imports: [MatIcon],
-  templateUrl: './empty-state.html',
-  styleUrl: './empty-state.css'
+  templateUrl: './empty-state.component.html',
+  styleUrls: ['./empty-state.component.css']
 })
-export class EmptyState {
+export class EmptyStateComponent {
 
 @Input() typeText='';
 

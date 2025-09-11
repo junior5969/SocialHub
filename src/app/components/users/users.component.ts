@@ -4,7 +4,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { API } from '../../service/api';
 import { HttpClient } from '@angular/common/http';
-import { User } from '../user/user';
+import { UserComponent } from '../user/user.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
@@ -17,11 +17,11 @@ import {
 } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
-import { SearchBar } from '../search-bar/search-bar';
-import { EmptyState } from '../empty-state/empty-state';
-import { Form } from '../form/form';
-import { Header } from '../header/header';
-import { Button } from '../button/button';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { EmptyStateComponent } from '../empty-state/empty-state.component';
+import { FormComponent } from '../form/form.component';
+import { HeaderComponent } from '../header/header.component';
+import { ButtonComponent } from '../button/button.component';
 import { UserInterface } from '../../models/user-interface';
 import { NewUserInterface } from '../../models/new-user-interface';
 
@@ -30,24 +30,24 @@ import { NewUserInterface } from '../../models/new-user-interface';
   standalone: true,
   imports: [
     CommonModule,
-    User,
-    Header,
-    Form,
-    Button,
+    UserComponent,
+    HeaderComponent,
+    FormComponent,
+    ButtonComponent,
     FormsModule,
-    EmptyState,
+    EmptyStateComponent,
     MatFormFieldModule,
     MatInputModule,
     MatSnackBarModule,
     ReactiveFormsModule,
     MatIconModule,
     RouterLink,
-    SearchBar,
+    SearchBarComponent,
   ],
-  templateUrl: './users.html',
-  styleUrls: ['./users.css'],
+  templateUrl: './users.component.html',
+  styleUrls: ['./users.component.css'],
 })
-export class Users implements OnInit {
+export class UsersComponent implements OnInit {
   users: UserInterface[] = [];
   totalUsers!: number;
 
@@ -90,7 +90,7 @@ export class Users implements OnInit {
     },
   ];
 
-  @ViewChild(Form) formComponent!: Form;
+  @ViewChild(FormComponent) formComponent!: FormComponent;
 
   private destroy$ = new Subject<void>();
 

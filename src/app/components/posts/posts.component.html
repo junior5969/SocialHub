@@ -2,7 +2,7 @@
 <div class="posts-header">
 <app-search-bar [placeholder]="'Cerca titolo o testo'" [(term)]="searchTerm" (termChange)="onSearchPost()"></app-search-bar>
 
-    <app-button type="button" (buttonClick)="toggleForm()" ariaLabel="Aggiungi un nuovo post" customClass="toggle-add-post"><mat-icon>add_box</mat-icon>{{ showForm ? '' : '' }}</app-button>
+    <app-button type="button" (buttonClick)="toggleForm()" [iconAriaHidden]="false" ariaLabel="Aggiungi un nuovo post" customClass="toggle-add-post"><mat-icon>add_box</mat-icon>{{ showForm ? '' : '' }}</app-button>
 
         <p>Tot. posts: {{this.totalPosts}}</p>
 
@@ -29,11 +29,11 @@
 
       <div class="post-button">
            <!-- Bottone mostra/nascondi commenti -->
-        <app-button type="button" (buttonClick)="toggleComments(post.id)" ariaLabel="Mostra commenti" customClass="toggle-view-comment"><mat-icon>mode_comment</mat-icon>{{ showComments[post.id] ? '' : '' }}</app-button>
+        <app-button type="button" (buttonClick)="toggleComments(post.id)" [iconAriaHidden]="false" ariaLabel="Mostra commenti" customClass="toggle-view-comment"><mat-icon>mode_comment</mat-icon>{{ showComments[post.id] ? '' : '' }}</app-button>
     
         <div class="form-comment">
 
-    <app-button type="button" (buttonClick)="toggleFormComment(post.id)"  ariaLabel="Aggiungi un nuovo commento" customClass="toggle-add-comment"><mat-icon> add_comment</mat-icon>{{ showFormComment[post.id] ? '' : '' }}</app-button>
+    <app-button type="button" (buttonClick)="toggleFormComment(post.id)" [iconAriaHidden]="false" ariaLabel="Aggiungi un nuovo commento" customClass="toggle-add-comment"><mat-icon> add_comment</mat-icon>{{ showFormComment[post.id] ? '' : '' }}</app-button>
 </div>
 
 @if (showFormComment[post.id]) {

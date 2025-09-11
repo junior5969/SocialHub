@@ -2,17 +2,17 @@ import { Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
 import {MatButtonModule} from '@angular/material/button';
 import { CommonModule } from '@angular/common';
-import { Header } from '../header/header';
-import { Button } from "../button/button";
+import { HeaderComponent } from '../header/header.component';
+import { ButtonComponent } from "../button/button.component";
 
 @Component({
   selector: 'app-homepage',
   standalone:true,
-  imports: [MatButtonModule, CommonModule, Header, Button],
-  templateUrl: './homepage.html',
-  styleUrls: ['./homepage.css']
+  imports: [MatButtonModule, CommonModule, HeaderComponent, ButtonComponent],
+  templateUrl: './homepage.component.html',
+  styleUrls: ['./homepage.component.css']
 })
-export class Homepage implements OnInit{
+export class HomepageComponent implements OnInit{
 
 tokenUrl='https://gorest.co.in/consumer/login';
 

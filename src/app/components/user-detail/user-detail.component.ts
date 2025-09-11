@@ -4,14 +4,14 @@ import { takeUntil } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { API } from '../../service/api';
-import { Card } from "../card/card";
-import { EmptyState } from '../empty-state/empty-state';
+import { CardComponent } from "../card/card.component";
+import { EmptyStateComponent } from '../empty-state/empty-state.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import {FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIcon } from '@angular/material/icon';
-import { Form } from "../form/form";
-import { Button } from '../button/button';
+import { FormComponent } from "../form/form.component";
+import { ButtonComponent } from '../button/button.component';
 import { UserInterface } from '../../models/user-interface';
 import { PostInterface } from '../../models/post-interface';
 import {CommentInterface} from '../../models/comment-interface';
@@ -20,11 +20,11 @@ import { NewCommentInterface } from '../../models/new-comment-interface';
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [Card, EmptyState, MatCardModule, MatIcon, Form, FormsModule, ReactiveFormsModule, Button, MatSnackBarModule],
-  templateUrl: './user-detail.html',
-  styleUrls: ['./user-detail.css']
+  imports: [CardComponent, EmptyStateComponent, MatCardModule, MatIcon, FormComponent, FormsModule, ReactiveFormsModule, ButtonComponent, MatSnackBarModule],
+  templateUrl: './user-detail.component.html',
+  styleUrls: ['./user-detail.component.css']
 })
-export class UserDetail implements OnInit{
+export class UserDetailComponent implements OnInit{
 
   user!: UserInterface;
   posts: PostInterface[] = [];
@@ -43,7 +43,7 @@ export class UserDetail implements OnInit{
   { name: 'body', label: 'Commento', type: 'textarea', validators: [Validators.required] },
 ];
 
-@ViewChild(Form) formComponent!: Form;
+@ViewChild(FormComponent) formComponent!: FormComponent;
 
 private destroy$ = new Subject<void>();
 

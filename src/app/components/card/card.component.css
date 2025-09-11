@@ -10,8 +10,6 @@
 
 .title {
 font-size: 1.3rem;
-padding: 10px;
-width: 60%;
 }
 
 .body{
@@ -20,12 +18,15 @@ font-weight: 300;
 text-align: start;
 }
 
+.user_id span{
+margin-right: 3px;
+}
+
 .card-header-title {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: column;
     align-items: flex-start;
     justify-content: space-between;
-    border: 2px solid black;
     width: 100%;
 }
 
@@ -33,6 +34,30 @@ text-align: start;
     display: flex;
     flex-direction: column-reverse;
     align-items: flex-start;
-    border: 2px solid black;
     gap: 20px;
+}
+
+@media screen and (max-width:768px) {
+ 
+    
+.card {
+    width: 90%;
+    max-width: unset;
+    margin: 0 auto;
+    height: auto;
+    padding: 8px;
+}
+
+.title {
+font-size: 1.1rem;
+}
+
+.body{
+font-size: 0.8rem;
+}
+
+.user_id {
+font-size: 0.8rem;
+}
+
 }

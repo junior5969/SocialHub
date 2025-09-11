@@ -6,10 +6,10 @@ import { MatCardModule } from '@angular/material/card';
   selector: 'app-card',
   standalone:true,
   imports: [CommonModule, MatCardModule],
-  templateUrl: './card.html',
-  styleUrl: './card.css'
+  templateUrl: './card.component.html',
+  styleUrls: ['./card.component.css']
 })
-export class Card {
+export class CardComponent {
 
   @Input() cardTitle=';'
   @Input() cardBody='';

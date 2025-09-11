@@ -2,16 +2,16 @@ import { Component } from '@angular/core';
 import { Auth } from '../../auth/auth';
 import { RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
-import { Button } from '../button/button';
+import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-header',
   standalone:true,
-  imports: [RouterLink, AsyncPipe, Button],
-  templateUrl: './header.html',
-  styleUrls: ['./header.css']
+  imports: [RouterLink, AsyncPipe, ButtonComponent],
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class Header{
+export class HeaderComponent{
 
  tokenUrl = 'https://gorest.co.in/consumer/login';
 

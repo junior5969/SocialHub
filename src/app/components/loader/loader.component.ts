@@ -7,10 +7,10 @@ import { CommonModule } from '@angular/common';
   selector: 'app-loader',
   standalone:true,
   imports: [CommonModule],
-  templateUrl: './loader.html',
-  styleUrls: ['./loader.css']
+  templateUrl: './loader.component.html',
+  styleUrls: ['./loader.component.css']
 })
-export class Loader implements OnInit {
+export class LoaderComponent implements OnInit {
   
   loading$!: Observable<boolean>;
   

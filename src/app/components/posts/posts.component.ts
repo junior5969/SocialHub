@@ -7,13 +7,13 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
-import { Card } from "../card/card";
+import { CardComponent } from "../card/card.component";
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormControl, FormsModule, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { SearchBar } from '../search-bar/search-bar';
-import { Form } from '../form/form';
-import { EmptyState } from '../empty-state/empty-state';
-import { Button } from '../button/button';
+import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { FormComponent } from '../form/form.component';
+import { EmptyStateComponent } from '../empty-state/empty-state.component';
+import { ButtonComponent } from '../button/button.component';
 import { PostInterface } from '../../models/post-interface';
 import { CommentInterface } from '../../models/comment-interface';
 import { NewPostInterface } from '../../models/new-post-interface';
@@ -22,11 +22,11 @@ import { NewCommentInterface } from '../../models/new-comment-interface';
 @Component({
   selector: 'app-posts',
   standalone:true,
-  imports: [CommonModule, Form, Button, Card, EmptyState, FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, SearchBar, MatSnackBarModule],
-  templateUrl: './posts.html',
-  styleUrls: ['./posts.css']
+  imports: [CommonModule, FormComponent, ButtonComponent, CardComponent, EmptyStateComponent, FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, SearchBarComponent, MatSnackBarModule],
+  templateUrl: './posts.component.html',
+  styleUrls: ['./posts.component.css']
 })
-export class Posts implements OnInit {
+export class PostsComponent implements OnInit {
 
 posts: PostInterface[] = [];
 totalPosts!:number;
@@ -61,7 +61,7 @@ postFields = [
   { name: 'body', label: 'Commento', type: 'textarea', validators: [Validators.required] },
 ];
 
-@ViewChild(Form) formComponent!: Form;
+@ViewChild(FormComponent) formComponent!: FormComponent;
 
 private destroy$ = new Subject<void>();
 

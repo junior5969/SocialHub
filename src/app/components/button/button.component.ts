@@ -8,10 +8,10 @@ import {MatButtonModule} from '@angular/material/button';
   selector: 'app-button',
   standalone:true,
   imports: [CommonModule, RouterModule, MatButtonModule],
-  templateUrl: './button.html',
-  styleUrls: ['./button.css']
+  templateUrl: './button.component.html',
+  styleUrls: ['./button.component.css']
 })
-export class Button {
+export class ButtonComponent {
 
   @Input() label?: string;
   @Input() type: 'button' | 'submit' = 'button'; //type button o submit (default button)
