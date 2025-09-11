@@ -1,3 +1,5 @@
+<app-header></app-header>
+
 <section>
 
 <div class="details">
@@ -23,17 +25,19 @@
     <app-card [cardTitle]="post.title" [cardBody]="post.body" [cardUserId]="post.user_id">
 
       <mat-card-actions class="card-action">
+
+        <div class="button-container">
         <!-- Bottone mostra/nascondi commenti -->
   <app-button type="button" (buttonClick)="toggleComments(post.id)" [iconAriaHidden]="false" ariaLabel="Visualizza i commenti" customClass="toggle-view-comment"><mat-icon>mode_comment</mat-icon>{{ showComments[post.id] ? '' : '' }}</app-button>
 
-
-      <div class="form-comment">
   <app-button type="button" (buttonClick)="toggleForm((post.id))" [iconAriaHidden]="false" ariaLabel="Aggiungi un nuovo commento" customClass="toggle-add-comment"><mat-icon> add_comment</mat-icon>{{ showFormPost ? '' : '' }}</app-button>
+</div>
 
+  <div class="form-comment">
 @if (showFormPost[post.id]) {
 <app-form
   [fields]="commentsFields"
-  (formSubmit)="onSubmit(post.id, $event)" class="users-form">
+  (formSubmit)="onSubmit(post.id, $event)" customClass="card-form">
 </app-form>
 }
 </div>

@@ -6,7 +6,6 @@ background-image: url(/assets/hub.jpg);
 background-size: cover;
 background-position: center;
 background-repeat: no-repeat;
-border: 2px solid black;
 display: flex;
 flex-direction: column;
 justify-content: space-evenly;
@@ -40,7 +39,7 @@ padding: 20px;
   display: flex;
   flex-direction: row;
   gap: 50px;
-  margin: 0 auto 40px auto;
+  margin: 0 auto 80px auto;
   width: fit-content;
 }
 

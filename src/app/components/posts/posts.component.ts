@@ -11,6 +11,7 @@ import { CardComponent } from "../card/card.component";
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormControl, FormsModule, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
+import { HeaderComponent } from '../header/header.component';
 import { FormComponent } from '../form/form.component';
 import { EmptyStateComponent } from '../empty-state/empty-state.component';
 import { ButtonComponent } from '../button/button.component';
@@ -22,7 +23,7 @@ import { NewCommentInterface } from '../../models/new-comment-interface';
 @Component({
   selector: 'app-posts',
   standalone:true,
-  imports: [CommonModule, FormComponent, ButtonComponent, CardComponent, EmptyStateComponent, FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, SearchBarComponent, MatSnackBarModule],
+  imports: [CommonModule, FormComponent, HeaderComponent, ButtonComponent, CardComponent, EmptyStateComponent, FormsModule, MatCardModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatIconModule, SearchBarComponent, MatSnackBarModule],
   templateUrl: './posts.component.html',
   styleUrls: ['./posts.component.css']
 })
@@ -113,7 +114,7 @@ toggleComments(postId: number) {
   }
 }
 
-onSubmitPost(formValue: { user_id: string; title: string; body: string }) {
+onSubmitPost(formValue: { user_id: number; title: string; body: string }) {
   const newPost: NewPostInterface = {
     user_id: Number(formValue.user_id),
     title: formValue.title,

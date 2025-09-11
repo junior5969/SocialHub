@@ -5,11 +5,12 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormsModule } from '@angular/forms';
 import { ButtonComponent } from '../button/button.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-form',
   standalone:true,
-  imports: [ButtonComponent, MatFormFieldModule, MatInputModule, MatSelectModule, FormsModule, ReactiveFormsModule],
+  imports: [ButtonComponent, CommonModule, MatFormFieldModule, MatInputModule, MatSelectModule, FormsModule, ReactiveFormsModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css']
@@ -18,6 +19,7 @@ export class FormComponent implements OnInit{
 
   @Input() fields!: { name: string; label: string; type: string; validators?: any[]; options?: string[]}[];
   @Input() resetOnSubmit: boolean = false; 
+  @Input() customClass?: string = '';
 
   @Output() formSubmit = new EventEmitter<any>();
 

@@ -1,4 +1,4 @@
-/* import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { Auth } from './auth';
 import { provideRouter } from '@angular/router';
 import { of } from 'rxjs';
@@ -11,7 +11,7 @@ describe('Auth Service', () => {
     TestBed.configureTestingModule({
       providers: [
         Auth,
-        provideRouter([{ path: 'login', loadComponent: () => import('../components/login/login').then(c => c.Login) }])
+        provideRouter([{ path: 'login', loadComponent: () => import('../components/login/login.component').then(c => c.LoginComponent) }])
       ]
     });
     service = TestBed.inject(Auth);
@@ -29,6 +29,11 @@ describe('Auth Service', () => {
     });
   });
 
+  it('dovrebbe restituire il token salvato con getToken', () => {
+  service.setToken('myToken');
+  expect(service.getToken()).toBe('myToken');
+});
+
   it('dovrebbe rimuovere il token al logout', (done) => {
     service.setToken('abc123');
     service.logout();
@@ -39,4 +44,3 @@ describe('Auth Service', () => {
     });
   });
 });
- */

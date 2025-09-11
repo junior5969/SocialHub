@@ -16,11 +16,12 @@ import { UserInterface } from '../../models/user-interface';
 import { PostInterface } from '../../models/post-interface';
 import {CommentInterface} from '../../models/comment-interface';
 import { NewCommentInterface } from '../../models/new-comment-interface';
+import { HeaderComponent } from '../header/header.component';
 
 @Component({
   selector: 'app-user-detail',
   standalone: true,
-  imports: [CardComponent, EmptyStateComponent, MatCardModule, MatIcon, FormComponent, FormsModule, ReactiveFormsModule, ButtonComponent, MatSnackBarModule],
+  imports: [CardComponent, EmptyStateComponent, HeaderComponent, MatCardModule, MatIcon, FormComponent, FormsModule, ReactiveFormsModule, ButtonComponent, MatSnackBarModule],
   templateUrl: './user-detail.component.html',
   styleUrls: ['./user-detail.component.css']
 })

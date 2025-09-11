@@ -1,22 +1,20 @@
-
 .posts-header {
-border: 2px solid black;
-display: flex;
-flex-direction: row-reverse;
-align-items: center;
-justify-content: space-evenly;
-width: 80%;
-margin: 30px auto 80px auto;
+    display: flex;
+    flex-direction: row-reverse;
+    align-items: center;
+    justify-content: space-between;
+    width: 80%;
+    margin: 80px auto 60px auto;
 }
 
 .posts-list {
     display: flex;
     flex-direction: column;
-    align-items: start;
+    align-items: center;
     justify-content: center;
     gap: 60px;
-    margin-left: 40px;
-    border: 2px solid black;
+    margin: 80px auto 0 auto;
+    width: 100%;
 }
 
 .post-button {
@@ -25,6 +23,137 @@ margin: 30px auto 80px auto;
     align-items: center;
     justify-content: space-between;
     width: 80%;
-    margin: 0 auto;
-    border: 2px solid black;
+    margin: 30px auto;
+}
+
+
+.comment-list {
+    list-style: none;
+    padding: 0;
+}
+
+.comment-list li {
+    font-weight: 400;
+    margin-bottom: 50px;
+}
+
+.comment-list li span {
+    font-weight: 600;
+    margin-right: 5px;
+    font-size: 1rem;
+}
+
+.comment-title {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6px;
+}
+
+.comment-body {
+    margin-left:5px;
+}
+
+.posts-form {
+  border-radius: 30px;
+  background: rgba(150, 182, 245, 0.629);
+  gap: 30px;
+  padding: 30px;
+  margin: 60px auto 100px auto;
+  font-size: 1.1rem;
+  width: 80%;
+}
+
+.posts-form input {
+  width: 150px;
+  border-radius: 20px;
+  padding: 5px 10px;
+}
+
+.form-button {
+  width: 80px;
+  height: 40px;
+  margin-left: 100%;
+}
+
+.card-action {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width:768px) {
+
+    .posts-section {
+        margin-top: 80px;
+    }
+
+    .posts-header {
+        display: flex;
+        flex-direction: column;
+        align-self: center;
+        margin: 80px auto 60px auto;
+        gap: 40px;
+    }
+
+    .posts-header p {
+        align-self: flex-end;
+    }
+    
+    .post-button {
+display: flex;
+flex-direction: row;
+margin-top: 40px;
+gap: 30px;
+    }
+
+
+.comment-list {
+    padding: 0;
+    margin: 20px 0 10px 10px;
+    list-style: none;
+}
+
+.comment-list li {
+    margin-bottom: 10px;
+}
+
+.comment-list li span {
+    margin-right: 5px;
+    font-size: 1rem;
+}
+
+.comment-body {
+  font-size: 0.8rem;
+}
+
+.comment-list {
+    padding: 0;
+    margin: 20px 0;
+    list-style: none;
+}
+
+  .users-form {
+    border-radius: 30px;
+    background: rgba(150, 182, 245, 0.629);
+    gap: 30px;
+    padding: 30px 0;
+    margin: 60px auto 100px auto;
+    font-size: 1.1rem;
+  }
+
+  .users-form input {
+    width: 80px;
+    border-radius: 20px;
+    padding: 5px 10px;
+  }
+
+}
+
+@media screen and (min-width:768px) and (max-width:900px) {
+    .users-form {
+    gap: 30px;
+    padding: 20px 0;
+  }
 }
