@@ -6,16 +6,16 @@ L’obiettivo è raccogliere idee e progetti volti a migliorare la qualità dell
 
 ## Funzionalità principali
 
-**Login con Token**
-- L’autenticazione avviene tramite token generato su `GoRest`, il quale viene salvato nella sessione e usato come Bearer Token per tutte le chiamate API.
-**Gestione utenti**
-- Visualizzazione di un elenco completo di utenti con barra di ricerca.
-- Per ogni utente è possibile visualizzarne dettagli e post pubblicati con relativi commenti.
-- Possibilità di eliminazione utenti e di creazione nuovi utenti.
-- Visualizzazione di una lista di tutti i post presenti con i relativi commenti, con barra di ricerca.
-- Possibilità di creazione di nuovi post e commenti.
-**Logout**
-- Funzionalità dedicata per la terminazione della sessione.
+- **Login con Token**
+   - L’autenticazione avviene tramite token generato su `GoRest`, il quale viene salvato nella sessione e usato come Bearer Token per tutte le chiamate API.
+- **Gestione utenti**
+   - Visualizzazione di un elenco completo di utenti con barra di ricerca.
+   - Per ogni utente è possibile visualizzarne dettagli e post pubblicati con relativi commenti.
+   - Possibilità di eliminazione utenti e di creazione nuovi utenti.
+   - Visualizzazione di una lista di tutti i post presenti con i relativi commenti, con barra di ricerca.
+   - Possibilità di creazione di nuovi post e commenti.
+- **Logout**
+   - Funzionalità dedicata per la terminazione della sessione.
 
 
 ## 📂Struttura del progetto 
