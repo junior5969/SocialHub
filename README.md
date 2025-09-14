@@ -24,19 +24,19 @@ L’obiettivo è raccogliere idee e progetti volti a migliorare la qualità dell
   - `HomepageComponent`: pagina introduttiva con call-to-action.
   - `UsersComponent`: lista utenti con barra di ricerca.
   - `UserComponent`: pannello espandibile per singolo utente con informazioni principali e pulsanti "Dettagli" ed "Elimina".
-  - `UserDetailsComponent`: dettaglio utente con relativi post e commenti.
+  - `UserDetailComponent`: dettaglio utente con relativi post e commenti.
   - `PostsComponent`: lista dei post con barra di ricerca.
   - `NotfoundComponent`: pagina di errore 404.
 - **Componenti riutilizzabili**:
   - `ButtonComponent`: pulsante personalizzabile con `routerLink`, o `EventEmitter`.
   - `CardComponent`: contenitore UI utilizzato per la rappresentazione dei post.
-  - `EmptyStateComponent`: messaggio di stato vuoto per ricerche senza contenuti.
+  - `EmptyStateComponent`: messaggio per ricerche senza contenuti.
   - `FormComponent`: gestione creazione nuovi utenti/post/commenti.
   - `HeaderComponent`: header principale con login/logout.
   - `LoaderComponent`: spinner globale, integrato in tutte le chiamate API.
   - `SearchBarComponent`: barra di ricerca per utenti e post.
 - **Servizi**:
-  - `Api`: gestione centralizzata delle chiamate API, 
+  - `Api`: gestione centralizzata delle chiamate API. 
   - `Auth`: login/logout e gestione token.
   - `AuthGuard`: protezione delle rotte private.
   - `AuthInterceptor`: aggiunge automaticamente il token alle richieste.
