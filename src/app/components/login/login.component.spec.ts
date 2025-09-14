@@ -1,11 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-
+import { provideRouter } from '@angular/router';
 import { LoginComponent } from './login.component';
 import { Auth } from '../../auth/auth';
 
@@ -15,19 +14,23 @@ describe('LoginComponent', () => {
   let authService: Auth;
   let router: Router;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [
-        LoginComponent,
-        FormsModule,
-        ReactiveFormsModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatButtonModule,
-        RouterTestingModule.withRoutes([])
-      ],
-      providers: [Auth]
-    }).compileComponents();
+beforeEach(async () => {
+  await TestBed.configureTestingModule({
+    imports: [
+      LoginComponent,
+      FormsModule,
+      ReactiveFormsModule,
+      MatFormFieldModule,
+      MatInputModule,
+      MatButtonModule,
+    ],
+    providers: [
+      Auth,
+      provideRouter([
+        { path: 'users', component: LoginComponent } // rotta dummy per test
+      ])
+    ]
+  }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;

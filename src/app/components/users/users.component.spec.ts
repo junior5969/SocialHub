@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed, fakeAsync, tick } from '@angular/core/testing';
 import { UsersComponent } from './users.component';
 import { API } from '../../service/api';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 import { provideRouter } from '@angular/router';
 import { FormComponent } from '../form/form.component';
 
@@ -122,6 +122,48 @@ it('should submit a new user', fakeAsync(() => {
     expect(component.displayedUsers.length).toBe(1);
     expect(component.displayedUsers.find(u => u.id === 1)).toBeUndefined();
   }));
+
+it('should handle error when loading users in ngOnInit', fakeAsync(() => {
+  apiMock.getUsers.and.returnValue(throwError(() => new Error('Errore caricamento utenti')));
+  spyOn(console, 'error');
+
+  // resetto gli array per simulare stato iniziale
+  component.users = [];
+  component.displayedUsers = [];
+  component.totalUsers = undefined!;
+
+  component.ngOnInit();
+  tick();
+
+  expect(apiMock.getUsers).toHaveBeenCalled();
+  expect(console.error).toHaveBeenCalledWith('Errore caricamento utenti:', jasmine.any(Error));
+  expect(component.users.length).toBe(0);
+  expect(component.displayedUsers.length).toBe(0);
+  expect(component.totalUsers).toBeUndefined();
+}));
+
+it('should handle error when creating a new user', fakeAsync(() => {
+  component.formComponent = formComponentMock; // 🔑 necessario
+
+  const formValue = {
+    name: 'Giulia Verdi',
+    email: 'giulia@example.com',
+    gender: 'female' as const,
+    status: 'active' as const,
+  };
+
+  apiMock.createUser.and.returnValue(throwError(() => new Error('Errore creazione utente')));
+  spyOn(console, 'error');
+
+  component.onSubmit(formValue);
+  tick();
+
+  expect(apiMock.createUser).toHaveBeenCalledWith(formValue);
+  expect(console.error).toHaveBeenCalledWith('Errore creazione utente:', jasmine.any(Error));
+  expect(component.formComponent.resetForm).not.toHaveBeenCalled(); // ora funziona
+  expect(component.displayedUsers.length).toBe(mockUsers.length); // nessun nuovo utente
+}));
+
 
   it('should toggle showFormUser', () => {
     component.showFormUser = false;
