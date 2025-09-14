@@ -1,7 +1,10 @@
 
 section {
-    background-image: url(/assets/notfound.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+width: 100%;
+height: 100vh;
+background-image: url(/assets/notfound.png);
+background-size: contain;
+background-position: center;
+background-repeat: no-repeat;
+background-color: rgb(192, 209, 215);
 }

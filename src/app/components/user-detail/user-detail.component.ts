@@ -39,9 +39,9 @@ export class UserDetailComponent implements OnInit{
   showFormPost: { [postId: number]: boolean } = {};
 
   commentsFields = [
-  { name: 'name', label: 'Nome', type: 'text', validators: [Validators.required] },
+  { name: 'name', label: 'Name', type: 'text', validators: [Validators.required] },
   { name: 'email', label: 'Email', type: 'email', validators: [Validators.required, Validators.email] },
-  { name: 'body', label: 'Commento', type: 'textarea', validators: [Validators.required] },
+  { name: 'body', label: 'Body', type: 'textarea', validators: [Validators.required] },
 ];
 
 @ViewChild(FormComponent) formComponent!: FormComponent;

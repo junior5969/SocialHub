@@ -4,7 +4,7 @@ import { catchError } from 'rxjs/operators';
 
 export const errorInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
-    // catch gli errori
+    // catch errori
     catchError((error: HttpErrorResponse) => {
       let message = 'Si è verificato un errore';
       if (error.error && error.error.message) {

@@ -1,47 +1,54 @@
-# SocialHub
+## 🌐SocialHub
 
-**SocialHub** nasce dall'idea di voler collegare gli abitanti dei centri urbani raccogliendo le loro idee e progetti mirati a proteggere e salvaguardare il patrimonio urbano, migliorandone la qualità della vita
-
-
-**GustoSano** permette di:
-
-- Visualizzare un elenco completo di utenti.
-- Cercare un utente specifico tramite la barra di ricerca.
-- Visualizzare per ogni utente i dettagli e i post pubblicati (con i relativi commenti), e per ogni utente la possibilità di eliminarlo.
-- Visualizzare una lista di tutti i post presenti, anch'essi con i relativi commenti.
-- Cercare un post specifico tramite la barra di ricerca.
-- Aggiungere nuovi utenti, post, commenti.
+**SocialHub** è un’applicazione sviluppata con Angular che permette di connettere gli utenti, condividere post e commenti, e gestire un piccolo ecosistema sociale digitale.
+L’obiettivo è raccogliere idee e progetti volti a migliorare la qualità della vita urbana, mettendo in rete cittadini e comunità locali.
 
 
-## Struttura del progetto
+## Funzionalità principali
 
-- **Componenti principali**:
-  - `HomepageComponent`: pagina principale con call-to-action.
+**Login con Token**
+- L’autenticazione avviene tramite token generato su `GoRest`, il quale viene salvato nella sessione e usato come Bearer Token per tutte le chiamate API.
+**Gestione utenti**
+- Visualizzazione di un elenco completo di utenti con barra di ricerca.
+- Per ogni utente è possibile visualizzarne dettagli e post pubblicati con relativi commenti.
+- Possibilità di eliminazione utenti e di creazione nuovi utenti.
+- Visualizzazione di una lista di tutti i post presenti con i relativi commenti, con barra di ricerca.
+- Possibilità di creazione di nuovi post e commenti.
+**Logout**
+- Funzionalità dedicata per la terminazione della sessione.
+
+
+## 📂Struttura del progetto 
+
+- **Componenti principali**: 
+  - `HomepageComponent`: pagina introduttiva con call-to-action.
   - `UsersComponent`: lista utenti con barra di ricerca.
   - `UserComponent`: pannello espandibile per singolo utente con informazioni principali e pulsanti "Dettagli" ed "Elimina".
-  - `UserDetailsComponent`: pagina con i dettagli del rispettivo utente selezionato, con i suoi post ed eventuali commenti relativi ai post.
-  - `PostsComponent`: lista post con barra di ricerca.
+  - `UserDetailsComponent`: dettaglio utente con relativi post e commenti.
+  - `PostsComponent`: lista dei post con barra di ricerca.
   - `NotfoundComponent`: pagina di errore 404.
 - **Componenti riutilizzabili**:
-  - `ButtonComponent`: componente riutilizzabile per gestire la navigazione tramite `routerLink`, o `EventEmitter`.
-  - `CardComponent`:
-  - `EmptyStateComponent`:
-  - `FormComponent`:
-  - `HeaderComponent`: usata nella homepage.
-  - `LoaderComponent`:componente globale che mostra uno spinner durante il caricamento dei dati dalle API, integrato in tutte le sezioni con chiamate HTTP asincrone.
-  - `SearchBarComponent`:
+  - `ButtonComponent`: pulsante personalizzabile con `routerLink`, o `EventEmitter`.
+  - `CardComponent`: contenitore UI utilizzato per la rappresentazione dei post.
+  - `EmptyStateComponent`: messaggio di stato vuoto per ricerche senza contenuti.
+  - `FormComponent`: gestione creazione nuovi utenti/post/commenti.
+  - `HeaderComponent`: header principale con login/logout.
+  - `LoaderComponent`: spinner globale, integrato in tutte le chiamate API.
+  - `SearchBarComponent`: barra di ricerca per utenti e post.
 - **Servizi**:
-  - `Api`: gestione chiamate API, basata su `environment.apiUrl` per supportare sviluppo e produzione.
-  Le chiamate HTTP sono intercettate dal `LoaderInterceptor`, che comunica con `LoaderService` per mostrare/nascondere automaticamente lo spinner durante le richieste.
-  - `ErrorInterceptor`:
-  - `Auth`:
-  - `AuthInterceptor`:
-  - `AuthGuard`:
+  - `Api`: gestione centralizzata delle chiamate API, 
+  - `Auth`: login/logout e gestione token.
+  - `AuthGuard`: protezione delle rotte private.
+  - `AuthInterceptor`: aggiunge automaticamente il token alle richieste.
+  - `ErrorInterceptor`: gestione centralizzata degli errori API.
+  - `LoaderService`: gestione globale dello stato di caricamento.
+  - `LoaderInterceptor` : mostra/nasconde lo spinner durante le chiamate HTTP.
 - **Models**:
-  - `UserInterface`, `PostInterface` e `CommentInterface` per la tipizzazione TypeScript degli elementi presenti in memoria.
-  - `NewUserInterface`, `NewPostInterface` e `NewCommentInterface` per la tipizzazione TypeScript dei nuovi elementi aggiunti tramite form.
+Per la tipizzazione Typescript
+  - `UserInterface`, `PostInterface`, `CommentInterface`.
+  - `NewUserInterface`, `NewPostInterface`, `NewCommentInterface` 
 - **Routing**:
-  - Implementato tramite `RouterModule` con gestione 404.
+  - Configurato con `RouterModule` e con gestione 404.
 
 
 ## Principali librerie esterne utilizzate
@@ -50,27 +57,26 @@
 - `@angular/cdk` → supporto Material e funzionalità aggiuntive.  
 - `rxjs` → gestione delle chiamate asincrone.  
 - `zone.js` → change detection Angular.
-
+- `karma + jasmine` → unit testing.
  
 
-## Istruzioni per configurare il progetto in locale
+## ⚙️Istruzioni per configurare il progetto in locale
 
 ### Prerequisiti
 
 - Node.js v18+  
 - npm v9+  
 - Angular CLI v20+  
+- Token generato da `GoRest`
 
 
-## Configurazione e avvio in locale
-
-Per avviare il progetto in locale, segui questi passaggi:
+## Installazione
 
 1. **Clona il repository:**
 
 ```bash
-git clone https://github.com/junior5969/GustoSano.git
-cd GustoSano
+git clone https://github.com/junior5969/SocialHub.git
+cd SocialHub
 ```
 
 2. **Installa le dipendenze:**
@@ -90,40 +96,16 @@ ng serve
 Vai all’indirizzo: http://localhost:4200
 
 
-5. **Build di sviluppo:**
+5. **Testing:**
 
 ```bash
-ng build
+ng test --code-coverage
 ```
-
-6. **Build di produzione:**
-
-```bash
-ng build --configuration production
-```
-
-## Backend Express (server locale) 
-
-7. **Vai nella cartella `server`**
-
-```bash
-cd server
-```
-
-8. **Installa le dipendenze:**
-
-```bash
-npm install
-```
-
-9. **Avvia il server:**
-
-
 
 
 ## Repository GitHub
 
-Visita il codice sorgente su [GitHub](https://github.com/junior5969/GustoSano)
+Visita il codice sorgente su [GitHub](https://github.com/junior5969/SocialHub)
 
 
 ## Documentazione 
