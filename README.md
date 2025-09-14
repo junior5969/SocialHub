@@ -51,6 +51,11 @@ Per la tipizzazione Typescript
   - Configurato con `RouterModule` e con gestione 404.
 
 
+## Testing
+
+L’applicazione include unit test scritti con **Karma + Jasmine**, seguendo le best practice Angular.  
+
+
 ## Principali librerie esterne utilizzate
 
 - `@angular/material` → componenti UI (Card, Button, Icon, Form).  
