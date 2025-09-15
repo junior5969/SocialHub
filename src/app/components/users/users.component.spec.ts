@@ -4,6 +4,8 @@ import { API } from '../../service/api';
 import { of, throwError } from 'rxjs';
 import { provideRouter } from '@angular/router';
 import { FormComponent } from '../form/form.component';
+import { UserInterface } from '../../models/user-interface';
+import { NewUserInterface } from '../../models/new-user-interface';
 
 describe('UsersComponent', () => {
   let component: UsersComponent;
@@ -11,12 +13,19 @@ describe('UsersComponent', () => {
   let apiMock: any;
   let formComponentMock: any;
 
-  const mockUsers = [
+  const mockUsers : UserInterface []= [
     { id: 1, name: 'Mario Rossi', email: 'mario@example.com', gender: 'male' as const, status: 'active' as const },
     { id: 2, name: 'Luigi Bianchi', email: 'luigi@example.com', gender: 'male' as const, status: 'inactive' as const },
   ];
 
-  const mockNewUser = {
+  const mockNewUser : NewUserInterface = {
+    name: 'Giulia Verdi',
+    email: 'giulia@example.com',
+    gender: 'female' as const,
+    status: 'active' as const,
+  };
+
+    const mockCreatedUser : UserInterface = {
     id: 3,
     name: 'Giulia Verdi',
     email: 'giulia@example.com',
@@ -27,7 +36,7 @@ describe('UsersComponent', () => {
   beforeEach(async () => {
     apiMock = {
       getUsers: jasmine.createSpy('getUsers').and.returnValue(of(mockUsers)),
-      createUser: jasmine.createSpy('createUser').and.returnValue(of(mockNewUser)),
+      createUser: jasmine.createSpy('createUser').and.returnValue(of(mockCreatedUser)),
       deleteUser: jasmine.createSpy('deleteUser').and.returnValue(of({})),
     };
 
@@ -38,7 +47,7 @@ describe('UsersComponent', () => {
     await TestBed.configureTestingModule({
       providers: [
         { provide: API, useValue: apiMock },
-        provideRouter([]), // sostituisce RouterTestingModule deprecato
+        provideRouter([]), // sostituisce RouterTestingModule 
       ],
       imports: [UsersComponent],
     }).compileComponents();
@@ -46,21 +55,21 @@ describe('UsersComponent', () => {
     fixture = TestBed.createComponent(UsersComponent);
     component = fixture.componentInstance;
     component.formComponent = formComponentMock;
-    fixture.detectChanges(); // inizializza component
+    fixture.detectChanges(); // inizializza il component
   });
 
-  // 🔧 reset degli array PRIMA di ogni test
+  // reset degli array prima di ogni test
   beforeEach(() => {
     component.users = [...mockUsers];
     component.displayedUsers = [...mockUsers];
     component.totalUsers = mockUsers.length;
   });
 
-  it('should create the component', () => {
+  it('dovrebbe creare il componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should load users on ngOnInit', fakeAsync(() => {
+  it('dovrebbe caricare gli utenti ad ngOnInit', fakeAsync(() => {
     component.ngOnInit();
     tick();
     expect(apiMock.getUsers).toHaveBeenCalled();
@@ -69,7 +78,7 @@ describe('UsersComponent', () => {
     expect(component.totalUsers).toBe(2);
   }));
 
-it('should submit a new user', fakeAsync(() => {
+it('dovrebbe aggiungere un nuovo utente', fakeAsync(() => {
   component.formComponent = formComponentMock;
 
   const formValue = {
@@ -91,28 +100,28 @@ it('should submit a new user', fakeAsync(() => {
   // verifica che il form sia stato resettato
   expect(component.formComponent.resetForm).toHaveBeenCalled();
 
-  // verifica che SOLO displayedUsers sia aggiornato
+  // verifica che solo displayedUsers sia aggiornato
   expect(component.displayedUsers.length).toBe(3);
-  expect(component.displayedUsers.find(u => u.id === mockNewUser.id)).toEqual(mockNewUser);
+  expect(component.displayedUsers[0]).toEqual(mockCreatedUser);
 
   // verifica che users non sia stato toccato
   expect(component.users.length).toBe(2);
 }));
 
-  it('should filter users on search', () => {
+  it('dovrebbe filtrare un utente cercato', () => {
     component.searchTerm = 'Luigi';
     component.onSearchUser();
     expect(component.displayedUsers.length).toBe(1);
     expect(component.displayedUsers[0].name).toBe('Luigi Bianchi');
   });
 
-  it('should reset displayedUsers if searchTerm is empty', () => {
+  it('dovrebbe far vedere displayedUsers se non vi è termine cercato', () => {
     component.searchTerm = '   ';
     component.onSearchUser();
     expect(component.displayedUsers.length).toBe(2);
   });
 
-  it('should delete a user', fakeAsync(() => {
+  it('dovrebbe eliminare un utente', fakeAsync(() => {
     component.onDeleteUser(1);
     tick();
 
@@ -123,11 +132,11 @@ it('should submit a new user', fakeAsync(() => {
     expect(component.displayedUsers.find(u => u.id === 1)).toBeUndefined();
   }));
 
-it('should handle error when loading users in ngOnInit', fakeAsync(() => {
+it('dovrebbe gestire errore durante il caricamento degli users ad ngOnInit', fakeAsync(() => {
   apiMock.getUsers.and.returnValue(throwError(() => new Error('Errore caricamento utenti')));
   spyOn(console, 'error');
 
-  // resetto gli array per simulare stato iniziale
+  // reset degli array per simulare stato iniziale
   component.users = [];
   component.displayedUsers = [];
   component.totalUsers = undefined!;
@@ -142,8 +151,8 @@ it('should handle error when loading users in ngOnInit', fakeAsync(() => {
   expect(component.totalUsers).toBeUndefined();
 }));
 
-it('should handle error when creating a new user', fakeAsync(() => {
-  component.formComponent = formComponentMock; // 🔑 necessario
+it('dovrebbe gestire errore durante la creazione di un nuovo utente', fakeAsync(() => {
+  component.formComponent = formComponentMock;
 
   const formValue = {
     name: 'Giulia Verdi',
@@ -160,12 +169,12 @@ it('should handle error when creating a new user', fakeAsync(() => {
 
   expect(apiMock.createUser).toHaveBeenCalledWith(formValue);
   expect(console.error).toHaveBeenCalledWith('Errore creazione utente:', jasmine.any(Error));
-  expect(component.formComponent.resetForm).not.toHaveBeenCalled(); // ora funziona
-  expect(component.displayedUsers.length).toBe(mockUsers.length); // nessun nuovo utente
+  expect(component.formComponent.resetForm).not.toHaveBeenCalled(); 
+  expect(component.displayedUsers.length).toBe(mockUsers.length); 
 }));
 
 
-  it('should toggle showFormUser', () => {
+  it('dovrebbe attivare/disattivare showFormUser', () => {
     component.showFormUser = false;
     component.toggleForm();
     expect(component.showFormUser).toBeTrue();
@@ -173,7 +182,7 @@ it('should handle error when creating a new user', fakeAsync(() => {
     expect(component.showFormUser).toBeFalse();
   });
 
-  it('should complete destroy$ on ngOnDestroy', () => {
+  it('dovrebbe completare il destroy ad ngOnDestroy', () => {
     spyOn(component['destroy$'], 'next');
     spyOn(component['destroy$'], 'complete');
     component.ngOnDestroy();

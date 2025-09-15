@@ -27,7 +27,7 @@ beforeEach(async () => {
     providers: [
       Auth,
       provideRouter([
-        { path: 'users', component: LoginComponent } // rotta dummy per test
+        { path: 'users', component: LoginComponent } 
       ])
     ]
   }).compileComponents();
@@ -39,11 +39,11 @@ beforeEach(async () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('dovrebbe creare il componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should set token and navigate on submit', () => {
+  it('dovrebbe impostare il token e navigare al submit', () => {
     spyOn(authService, 'setToken');
     spyOn(router, 'navigate');
 
@@ -54,11 +54,11 @@ beforeEach(async () => {
     expect(router.navigate).toHaveBeenCalledWith(['/users']);
   });
 
-  it('should not call setToken if form is invalid', () => {
+  it('dovrebbe non chiamare setToken se il form non è valido', () => {
     spyOn(authService, 'setToken');
     spyOn(router, 'navigate');
 
-    component.loginForm.setValue({ token: '' }); // invalid
+    component.loginForm.setValue({ token: '' });
     component.onSubmit();
 
     expect(authService.setToken).not.toHaveBeenCalled();

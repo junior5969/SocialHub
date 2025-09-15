@@ -15,13 +15,9 @@ describe('UserDetailComponent', () => {
   let apiMock: any;
   let formComponentMock: any;
 
-
-
 //mock dei dati per simulare il backend 
 
-  const mockUser : UserInterface =    //utente finto
-    { id:1, name: 'Mario Rossi', email: 'mario@example.com', gender: 'male' as const, status: 'active' as const };
-
+const mockUser : UserInterface = { id:1, name: 'Mario Rossi', email: 'mario@example.com', gender: 'male' as const, status: 'active' as const };
 
 const mockPosts:PostInterface [] = [
 {id:1, user_id:123, title:'title1', body:'firstpost'},
@@ -33,9 +29,7 @@ const mockComments: CommentInterface [] = [
 {  id: 2, post_id: 111, name: 'Luca Rossi', email: 'luca@example.com', body: 'texttext'},
 ];
 
-const mockNewComment: NewCommentInterface= 
-{ name: 'Paolo Neri', email: 'paolo@example.com', body: 'comment'};
-
+const mockNewComment: NewCommentInterface= { name: 'Paolo Neri', email: 'paolo@example.com', body: 'comment'};
 
 
 //configurazione della finta api
@@ -54,7 +48,7 @@ const mockNewComment: NewCommentInterface=
    await TestBed.configureTestingModule({
       providers: [
         { provide: API, useValue: apiMock },
-        provideRouter([]), // sostituisce RouterTestingModule deprecato
+        provideRouter([]), 
       ],
       imports: [UserDetailComponent],
     }).compileComponents();
@@ -65,28 +59,17 @@ const mockNewComment: NewCommentInterface=
         fixture.detectChanges(); // inizializza component
       });
 
-      // 🔧 reset degli array PRIMA di ogni test
       beforeEach(() => {
         component.posts = [...mockPosts];
         component.displayedComments = [...mockComments];
       });
     
 
-      //caricare utente e posts all OnInit
-
-   it('should create the component', () => {
+   it('dovrebbe creare il componente', () => {
     expect(component).toBeTruthy();
   });
-
-
-/*   it('should load user on ngOnInit', fakeAsync(() => {
-    component.ngOnInit();
-    tick();
-   expect(apiMock.getUserById).toHaveBeenCalled();
-  })); */
-     
-     
-it('should load user and posts on ngOnInit', fakeAsync(() => {
+    
+it('dovrebbe caricare utenti e posts ad ngOnInit', fakeAsync(() => {
   component.ngOnInit();
   tick();
 
@@ -97,7 +80,7 @@ it('should load user and posts on ngOnInit', fakeAsync(() => {
   expect(component.posts.length).toBe(2);
 }));
 
-it('should load comments when toggleComments is called first time', fakeAsync(() => {
+it('dovrebbe caricare i commenti quando viene attivato toggleComments', fakeAsync(() => {
   component.toggleComments(1);
   tick();
 
@@ -106,7 +89,7 @@ it('should load comments when toggleComments is called first time', fakeAsync(()
   expect(component.showComments[1]).toBeTrue();
 }));
 
-it('should submit a new comment', fakeAsync(() => {
+it('dovrebbe aggiungere un nuovo commento', fakeAsync(() => {
   component.formComponent = formComponentMock;
 
   const formValue = { name: 'Anna Verdi', email: 'anna@example.com', body: 'testo' };
@@ -118,7 +101,7 @@ it('should submit a new comment', fakeAsync(() => {
   expect(component.showComments[1]).toBeTrue();
 }));
 
-it('should handle error when loading user', fakeAsync(() => {
+it('dovrebbe gestire errore quando viene caricato un utente', fakeAsync(() => {
   apiMock.getUserById.and.returnValue(throwError(() => new Error('Errore finto')));
   spyOn(console, 'error');
 
@@ -128,7 +111,17 @@ it('should handle error when loading user', fakeAsync(() => {
   expect(console.error).toHaveBeenCalledWith('Errore caricamento utente:', jasmine.any(Error));
 }));
 
-it('should handle error when creating a comment', fakeAsync(() => {
+it('dovrebbe gestire errore quando vengono caricati i posts', fakeAsync(() => {
+  apiMock.getUserPosts.and.returnValue(throwError(() => new Error('Errore finto')));
+  spyOn(console, 'error');
+
+  component.ngOnInit();
+  tick();
+
+  expect(console.error).toHaveBeenCalledWith('Errore caricamento post utente:', jasmine.any(Error));
+}));
+
+it('dovrebbe gestire errore quando viene creato un commento', fakeAsync(() => {
   apiMock.createComment.and.returnValue(throwError(() => new Error('Errore creazione')));
   spyOn(console, 'error');
   const snackBarSpy = spyOn(component['snackBar'], 'open');
@@ -140,7 +133,7 @@ it('should handle error when creating a comment', fakeAsync(() => {
   expect(snackBarSpy).toHaveBeenCalledWith('Errore durante la creazione del commento!', 'Chiudi', jasmine.any(Object));
 }));
 
-it('should toggle comments off if already loaded', fakeAsync(() => {
+it('dovrebbe nascondere i commenti se già caricati', fakeAsync(() => {
   component.comments[1] = [...mockComments];
   component.showComments[1] = true;
 
@@ -149,7 +142,7 @@ it('should toggle comments off if already loaded', fakeAsync(() => {
   expect(component.showComments[1]).toBeFalse();
 }));
 
-  it('should complete destroy$ on ngOnDestroy', () => {
+  it('dovrebbe completare il destroy ad ngOnDestroy', () => {
     spyOn(component['destroy$'], 'next');
     spyOn(component['destroy$'], 'complete');
     component.ngOnDestroy();

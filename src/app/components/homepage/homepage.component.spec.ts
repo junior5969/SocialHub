@@ -28,17 +28,17 @@ describe('HomepageComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create the component', () => {
+  it('dovrebbe creare il componente', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should navigate to login when onLogin is called', () => {
+  it('dovrebbe portare al login quando viene chiamato il metodo onLogin', () => {
     const routerSpy = spyOn(router, 'navigate');
     component.onLogin();
     expect(routerSpy).toHaveBeenCalledWith(['/login']);
   });
 
-  it('should open token URL in new tab when onCreateToken is called', () => {
+  it('dovrebbe portare alla pagina di creazione del token quando viene chiamato il metodo onCreateToken', () => {
     const windowOpenSpy = spyOn(window, 'open');
     component.onCreateToken();
     expect(windowOpenSpy).toHaveBeenCalledWith(component.tokenUrl, '_blank');

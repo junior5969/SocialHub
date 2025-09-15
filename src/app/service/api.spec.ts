@@ -14,8 +14,8 @@ describe('API Service', () => {
     TestBed.configureTestingModule({
       providers: [
         API,
-        provideHttpClient(),          // Serve _HttpClient
-        provideHttpClientTesting()    // Serve HttpTestingController
+        provideHttpClient(),          
+        provideHttpClientTesting()    
       ]
     });
     service = TestBed.inject(API);
@@ -26,22 +26,22 @@ describe('API Service', () => {
     httpMock.verify();
   });
 
-  it('dovrebbe recuperare tutti gli utenti - successo', (done) => {
-    const dummyUsers: UserInterface[] = [
+  it('dovrebbe recuperare gli utenti', (done) => {
+    const mockUsers: UserInterface[] = [
       { id: 1, name: 'Alice', email: 'alice@example.com', gender: 'female', status: 'active' },
       { id: 2, name: 'Bob', email: 'bob@example.com', gender: 'male', status: 'active' }
     ];
 
     service.getUsers().subscribe(users => {
-      expect(users).toEqual(dummyUsers);
+      expect(users).toEqual(mockUsers);
       done();
     });
 
     const req = httpMock.expectOne(`${service['baseUrl']}/users?page=1&per_page=20`);
-    req.flush(dummyUsers);
+    req.flush(mockUsers);
   });
 
-  it('dovrebbe recuperare tutti gli utenti - errore', (done) => {
+  it('dovrebbe non recuperare tutti gli utenti', (done) => {
     service.getUsers().subscribe({
       next: () => fail('should fail'),
       error: (err) => {
@@ -54,22 +54,22 @@ describe('API Service', () => {
     req.flush('Error', { status: 404, statusText: 'Not Found' });
   });
 
-  it('dovrebbe recuperare i post di un utente - successo', (done) => {
-    const dummyPosts: PostInterface[] = [
+  it('dovrebbe recuperare i post di un utente', (done) => {
+    const mockPosts: PostInterface[] = [
       { id: 1, user_id: 1, title: 'Post 1', body: 'Body 1' },
       { id: 2, user_id: 1, title: 'Post 2', body: 'Body 2' }
     ];
 
     service.getUserPosts(1).subscribe(posts => {
-      expect(posts).toEqual(dummyPosts);
+      expect(posts).toEqual(mockPosts);
       done();
     });
 
     const req = httpMock.expectOne(`${service['baseUrl']}/users/1/posts`);
-    req.flush(dummyPosts);
+    req.flush(mockPosts);
   });
 
-  it('dovrebbe recuperare i post di un utente - errore', (done) => {
+  it('dovrebbe non recuperare i post di un utente', (done) => {
     service.getUserPosts(1).subscribe({
       next: () => fail('should fail'),
       error: (err) => {
@@ -82,19 +82,19 @@ describe('API Service', () => {
     req.flush('Error', { status: 500, statusText: 'Server Error' });
   });
 
-  it('dovrebbe recuperare un singolo utente - successo', (done) => {
-    const dummyUser: UserInterface = { id: 1, name: 'Alice', email: 'alice@example.com', gender: 'female', status: 'active' };
+  it('dovrebbe recuperare un singolo utente', (done) => {
+    const mockUser: UserInterface = { id: 1, name: 'Alice', email: 'alice@example.com', gender: 'female', status: 'active' };
 
     service.getUserById(1).subscribe(user => {
-      expect(user).toEqual(dummyUser);
+      expect(user).toEqual(mockUser);
       done();
     });
 
     const req = httpMock.expectOne(`${service['baseUrl']}/users/1`);
-    req.flush(dummyUser);
+    req.flush(mockUser);
   });
 
-  it('dovrebbe recuperare un singolo utente - errore', (done) => {
+  it('dovrebbe non recuperare un singolo utente', (done) => {
     service.getUserById(1).subscribe({
       next: () => fail('should fail'),
       error: (err) => {
